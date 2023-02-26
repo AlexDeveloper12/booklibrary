@@ -35,9 +35,11 @@ function App() {
   }
 
   if (loading) {
-    <div className="text-center">
-      <ClipLoader loading={loading}/>
-    </div>
+    return (
+      <div className="text-center">
+        <ClipLoader loading={loading} size={150} />
+      </div>
+    )
 
   }
 
