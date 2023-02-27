@@ -1,6 +1,7 @@
 import React from "react";
 import { AiFillBook } from 'react-icons/ai';
 import moment from "moment";
+import { printTypes, bookTypes } from "../components/Utils/Utils";
 
 function Book({ item }) {
 
@@ -12,7 +13,24 @@ function Book({ item }) {
         return formattedDate;
     }
 
+    const bookTypeValues = bookTypes.map((value,index)=>{
+        return(
+            <option value={value} key={value}>
+                {value}
+            </option>
+        )
+    });
+
+    const printTypeValues = printTypes.map((value,index)=>{
+        return(
+            <option value={value} key={value}>
+                {value}
+            </option>
+        )
+    })
+
     return (
+
         <div className="col-md-3 mb-4">
             <div className="card">
                 {
@@ -37,9 +55,6 @@ function Book({ item }) {
                                 {formatDate(item.volumeInfo.publishedDate)}
                             </span>
                         </div>
-
-
-
                     </p>
                     <a href="#" className="card-link"> <AiFillBook size={25} color="black" /> Add to bookshelf </a>
                     <a href="#" className="card-link">Show more</a>
