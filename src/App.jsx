@@ -9,6 +9,7 @@ import { apiURL } from "../src/components/API/calls";
 import Book from './components/Book';
 import { bookTypes, filterButtonValues, printTypes } from './components/Utils/Utils';
 import RadioButton from './components/RadioButton';
+import CustomDropdown from './components/CustomDropdown';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -115,7 +116,7 @@ function App() {
         />
       </div>
 
-      <div className="row form-group">
+      <div className="row form-group mb-4">
 
         {
           filterButtonValues.map(({ label, value }, index) => {
@@ -131,47 +132,31 @@ function App() {
         }
       </div>
 
-
       <div className="row mb-4">
 
         <div className='mb-4'>
-          <select
-            id="printType"
-            name="printtype"
-            className="form-select"
+          <CustomDropdown
+            id={"printType"}
+            name={"printtype"}
             value={chosenPrintType}
-            onChange={(event) => handleTypeChange(event)}
-            
-          >
-            <option value="-1">Please select</option>
-            {printTypes.map((value, index) => {
-              return (
-                <option value={value}>{value}</option>
-              )
-            })
-            }
-          </select>
+            handler={handleTypeChange}
+            type={printTypes}
+          />
         </div>
 
 
         <div className='mb-4'>
-          <select
-            id="bookType"
-            name="booktype"
-            className="form-select"
+          <CustomDropdown
+            id={"bookType"}
+            name={"booktype"}
             value={chosenBookType}
-            onChange={(event) => handleTypeChange(event)}
-          >
-            <option value="-1">Please select</option>
-            {
-              bookTypes.map((value, index) => {
-                return (
-                  <option value={value}>{value}</option>
-                )
-              })
-            }
-          </select>
+            handler={handleTypeChange}
+            type={bookTypes}
+          />
+
+
         </div>
+
 
       </div>
 
@@ -195,6 +180,7 @@ function App() {
             : null
         }
       </div>
+
     </div>
   )
 }

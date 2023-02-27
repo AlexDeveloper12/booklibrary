@@ -8,7 +8,7 @@ function Search({ searchValue, handleSearch, btnSearch }) {
                     <input
                         type="text"
                         className="form-control"
-                        value={searchValue} placeholder="Please enter the name of a book..."
+                        value={searchValue} placeholder="Search via title/ISBN"
                         onChange={(event) => handleSearch(event)}
                     />
                 </div>

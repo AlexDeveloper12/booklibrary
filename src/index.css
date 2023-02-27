@@ -29,6 +29,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url("/Users/alexbiddle/Desktop/ReactApps/books-feb-2023/books-feb-2023/public/background.jpg");
 }
 
 h1 {
