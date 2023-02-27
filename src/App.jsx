@@ -11,7 +11,7 @@ import { bookTypes, filterButtonValues, printTypes } from './components/Utils/Ut
 import RadioButton from './components/RadioButton';
 
 function App() {
-  const [searchValue, setSearchValue] = useState("the idiot");
+  const [searchValue, setSearchValue] = useState("");
   const [books, setBooks] = useState([]);
   const [maxResults, setMaxResults] = useState(40);
   const [loading, setLoading] = useState(false);
@@ -49,11 +49,12 @@ function App() {
       additionalQueryParams += `&printType=${chosenPrintType}`;
     }
 
-    if(bookFilter!==""){
+    if (bookFilter === "ISBN") {
       filterValue = "isbn:"
     }
 
     setLoading(true);
+
     axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
       .then(response => {
         if (response !== null && response.data !== null) {
@@ -106,30 +107,30 @@ function App() {
   return (
     <div className="App">
 
-      <div className="row">
+      <div className="row mb-4">
         <Search
           searchValue={searchValue}
           handleSearch={handleSearch}
           btnSearch={submitSearch}
         />
-
-        <div className="radio">
-          {
-            filterButtonValues.map(({ label, value }, index) => {
-              return (
-                <RadioButton
-                  label={label}
-                  value={value}
-                  index={index}
-                  filterChange={handleBookFilter}
-                />
-              )
-            })
-          }
-        </div>
-
-
       </div>
+
+      <div className="row form-group">
+
+        {
+          filterButtonValues.map(({ label, value }, index) => {
+            return (
+              <RadioButton
+                label={label}
+                value={value}
+                index={index}
+                filterChange={handleBookFilter}
+              />
+            )
+          })
+        }
+      </div>
+
 
       <div className="row mb-4">
 
@@ -140,7 +141,7 @@ function App() {
             className="form-select"
             value={chosenPrintType}
             onChange={(event) => handleTypeChange(event)}
-            style={{ width: '50%' }}
+            
           >
             <option value="-1">Please select</option>
             {printTypes.map((value, index) => {
@@ -160,7 +161,6 @@ function App() {
             className="form-select"
             value={chosenBookType}
             onChange={(event) => handleTypeChange(event)}
-            style={{ width: '50%' }}
           >
             <option value="-1">Please select</option>
             {
@@ -173,12 +173,7 @@ function App() {
           </select>
         </div>
 
-
       </div>
-
-
-
-
 
       <div className="row">
 
@@ -198,12 +193,8 @@ function App() {
             })
 
             : null
-
-
         }
       </div>
-
-
     </div>
   )
 }
