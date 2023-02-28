@@ -15,7 +15,7 @@ function Book({ item }) {
 
     return (
 
-        <div className="col-md-3 mb-4">
+        <div className="col-md-3 mb-4" style={{height:'500px',overflow:'hidden',textOverflow:'ellipsis'}}>
             <div className="card">
                 {
                     item.volumeInfo.imageLinks !== undefined ?
@@ -28,15 +28,22 @@ function Book({ item }) {
                     </h5>
                     <h6 className="card-subtitle mb-2 text-muted">{item.volumeInfo.subtitle} </h6>
                     <p className="card-text">
-                        {item.searchInfo !== undefined ?
+                        {/* {item.searchInfo !== undefined ?
 
                             <span>{item.searchInfo.textSnippet}</span>
 
                             : null
+                        } */}
+                        
+
+                        {
+                            item.volumeInfo.pageCount !== undefined ?  <span>{item.volumeInfo.pageCount} pages</span> : ""
                         }
+
+
                         <div className="mt-1">
                             <span>
-                                {formatDate(item.volumeInfo.publishedDate)}
+                               Published date: {formatDate(item.volumeInfo.publishedDate)}
                             </span>
                         </div>
                     </p>
