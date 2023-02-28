@@ -9,6 +9,7 @@ function CustomDropdown({id,name,value,type,handler}){
             value={value}
             onChange={(event) => handler(event)}
             style={{width:'30%'}}
+            key={id}
           >
             <option value="-1">Please select</option>
             {

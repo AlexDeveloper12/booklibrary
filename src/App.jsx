@@ -10,6 +10,7 @@ import Book from './components/Book';
 import { bookTypes, filterButtonValues, printTypes } from './components/Utils/Utils';
 import RadioButton from './components/RadioButton';
 import CustomDropdown from './components/CustomDropdown';
+import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -21,6 +22,15 @@ function App() {
   const [bookFilter, setBookFilter] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
+  const [isBookAddInfo,setIsBookAddInfo] = useState(false);
+  const [chosenBook,setChosenBook] = useState("")
+
+  const toggleAdditionalBookInfoModal = (book) =>{
+    if(book!==null && book!==undefined){
+      setChosenBook(book);
+    }
+    setIsBookAddInfo(!isBookAddInfo);
+  }
 
   const handleSearch = (event) => {
     console.log(event.target.value);
@@ -116,7 +126,6 @@ function App() {
         <ClipLoader loading={loading} size={150} />
       </div>
     )
-
   }
 
   return (
@@ -140,9 +149,10 @@ function App() {
                   value={value}
                   index={index}
                   filterChange={handleBookFilter}
+                  key={index}
                 />
               )
-            })
+            })  
           }
         </div>
 
@@ -167,8 +177,6 @@ function App() {
               handler={handleTypeChange}
               type={bookTypes}
             />
-
-
           </div>
 
 
@@ -186,7 +194,7 @@ function App() {
                   <Book
                     key={index}
                     item={value}
-
+                    toggleModal={toggleAdditionalBookInfoModal}
                   />
                 )
               }
@@ -196,6 +204,15 @@ function App() {
             : null
         }
       </div>
+
+      <div className="row">
+        <BookAdditionalInfo
+          isOpen={isBookAddInfo}
+          item={chosenBook}
+          toggleModal={toggleAdditionalBookInfoModal}
+          />
+      </div>
+
 
     </div>
   )
