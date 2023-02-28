@@ -11,7 +11,7 @@ function RadioButton({ label, value, index, filterChange }) {
                 value={value}
                 className="form-check-input"
             />
-            <label className="form-check-label" htmlFor={`filter-value-rb-${index}`} >
+            <label className="form-check-label" htmlFor={`filter-value-rb-${index}`} style={{marginLeft:'20px'}} >
                 {label}
             </label>
         </div>

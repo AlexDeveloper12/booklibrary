@@ -14,11 +14,13 @@ import CustomDropdown from './components/CustomDropdown';
 function App() {
   const [searchValue, setSearchValue] = useState("");
   const [books, setBooks] = useState([]);
-  const [maxResults, setMaxResults] = useState(40);
+  const [maxResults, setMaxResults] = useState(10);
   const [loading, setLoading] = useState(false);
   const [chosenPrintType, setChosenPrintType] = useState("");
   const [chosenBookType, setChosenBookType] = useState("");
   const [bookFilter, setBookFilter] = useState("");
+  const [startIndex, setStartIndex] = useState(0);
+  const [previousIndex, setPreviousIndex] = useState(0);
 
   const handleSearch = (event) => {
     console.log(event.target.value);
@@ -56,7 +58,7 @@ function App() {
 
     setLoading(true);
 
-    axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
+    axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
       .then(response => {
         if (response !== null && response.data !== null) {
           setBooks(response.data.items);
@@ -96,6 +98,18 @@ function App() {
     setBookFilter(event.target.value);
   }
 
+  const createPagination = () => {
+    let totalResults = [...books];
+
+    if (startIndex === 0 && totalResults.items > maxResults) {
+      setPreviousIndex(startIndex);
+      setStartIndex(startIndex + maxResults);
+    } else {
+
+    }
+  }
+
+
   if (loading) {
     return (
       <div className="text-center">
@@ -106,57 +120,59 @@ function App() {
   }
 
   return (
-    <div className="App">
-
-      <div className="row mb-4">
-        <Search
-          searchValue={searchValue}
-          handleSearch={handleSearch}
-          btnSearch={submitSearch}
-        />
-      </div>
-
-      <div className="row form-group mb-4">
-
-        {
-          filterButtonValues.map(({ label, value }, index) => {
-            return (
-              <RadioButton
-                label={label}
-                value={value}
-                index={index}
-                filterChange={handleBookFilter}
-              />
-            )
-          })
-        }
-      </div>
-
-      <div className="row mb-4">
-
-        <div className='mb-4'>
-          <CustomDropdown
-            id={"printType"}
-            name={"printtype"}
-            value={chosenPrintType}
-            handler={handleTypeChange}
-            type={printTypes}
+    <div>
+      <div className='container'>
+        <div className="row mb-4">
+          <Search
+            searchValue={searchValue}
+            handleSearch={handleSearch}
+            btnSearch={submitSearch}
           />
         </div>
 
+        <div className="row form-group mb-4">
 
-        <div className='mb-4'>
-          <CustomDropdown
-            id={"bookType"}
-            name={"booktype"}
-            value={chosenBookType}
-            handler={handleTypeChange}
-            type={bookTypes}
-          />
+          {
+            filterButtonValues.map(({ label, value }, index) => {
+              return (
+                <RadioButton
+                  label={label}
+                  value={value}
+                  index={index}
+                  filterChange={handleBookFilter}
+                />
+              )
+            })
+          }
+        </div>
+
+        <div className="row mb-4">
+
+          <div className='mb-4'>
+            <CustomDropdown
+              id={"printType"}
+              name={"printtype"}
+              value={chosenPrintType}
+              handler={handleTypeChange}
+              type={printTypes}
+            />
+          </div>
+
+
+          <div className='mb-4'>
+            <CustomDropdown
+              id={"bookType"}
+              name={"booktype"}
+              value={chosenBookType}
+              handler={handleTypeChange}
+              type={bookTypes}
+            />
+
+
+          </div>
 
 
         </div>
-
 
       </div>
 

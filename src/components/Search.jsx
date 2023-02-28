@@ -3,7 +3,7 @@ import React from "react";
 function Search({ searchValue, handleSearch, btnSearch }) {
     return (
         
-            <div className="input-group mb-3">
+            <div className="input-group mb-3 mx-auto">
                 <div className="input-group-prepend">
                     <input
                         type="text"
