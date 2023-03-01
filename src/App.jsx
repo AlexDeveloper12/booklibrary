@@ -22,11 +22,13 @@ function App() {
   const [bookFilter, setBookFilter] = useState("");
   const [startIndex, setStartIndex] = useState(0);
   const [previousIndex, setPreviousIndex] = useState(0);
-  const [isBookAddInfo,setIsBookAddInfo] = useState(false);
-  const [chosenBook,setChosenBook] = useState("")
+  const [isBookAddInfo, setIsBookAddInfo] = useState(false);
+  const [chosenBook, setChosenBook] = useState("");
+  const [isError, setIsError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const toggleAdditionalBookInfoModal = (book) =>{
-    if(book!==null && book!==undefined){
+  const toggleAdditionalBookInfoModal = (book) => {
+    if (book !== null && book !== undefined) {
       setChosenBook(book);
     }
     setIsBookAddInfo(!isBookAddInfo);
@@ -54,32 +56,40 @@ function App() {
     let additionalQueryParams = "";
     let filterValue = "";
 
-    if (chosenBookType !== "") {
-      additionalQueryParams += `&filter=${chosenBookType}`;
+    if (searchValue !== "") {
+
+      if (chosenBookType !== "") {
+        additionalQueryParams += `&filter=${chosenBookType}`;
+      }
+
+      if (chosenPrintType !== "") {
+        additionalQueryParams += `&printType=${chosenPrintType}`;
+      }
+
+      if (bookFilter === "ISBN") {
+        filterValue = "isbn:"
+      }
+
+      setLoading(true);
+
+      axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
+        .then(response => {
+          if (response !== null && response.data !== null) {
+            setBooks(response.data.items);
+            console.log(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
+            setLoading(false);
+          }
+        })
+        .catch(error => {
+          console.log(`An error occurred searching for the book ${error}`)
+          console.log(`${apiURL}q=${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
+        })
+    }
+    else {
+      setErrorMessage("Please ensure you enter a book title or isbn number");
+      setIsError(true);
     }
 
-    if (chosenPrintType !== "") {
-      additionalQueryParams += `&printType=${chosenPrintType}`;
-    }
-
-    if (bookFilter === "ISBN") {
-      filterValue = "isbn:"
-    }
-
-    setLoading(true);
-
-    axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
-      .then(response => {
-        if (response !== null && response.data !== null) {
-          setBooks(response.data.items);
-          console.log(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
-          setLoading(false);
-        }
-      })
-      .catch(error => {
-        console.log(`An error occurred searching for the book ${error}`)
-        console.log(`${apiURL}q=${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
-      })
   }
 
   const addToBookshelf = () => {
@@ -89,7 +99,8 @@ function App() {
       description: "",
       pageCount: "",
       rating: 0,
-      imageUrl: ""
+      imageUrl: "",
+      authors:""
     }
 
     localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
@@ -119,6 +130,9 @@ function App() {
     }
   }
 
+  const toggleError = () => {
+    setIsError(!isError);
+  }
 
   if (loading) {
     return (
@@ -132,11 +146,31 @@ function App() {
     <div>
       <div className='container'>
         <div className="row mb-4">
+
           <Search
             searchValue={searchValue}
             handleSearch={handleSearch}
             btnSearch={submitSearch}
           />
+
+
+        </div>
+
+        <div className="row mb-4">
+
+          {
+            isError ?
+              <div className="alert alert-danger alert-dismissible" role="alert">
+                {errorMessage}
+                <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={toggleError}>
+                  <span aria-hidden="true" style={{ color: 'white' }}> &times;</span>
+                </button>
+
+              </div>
+
+              : null
+          }
+
         </div>
 
         <div className="row form-group mb-4">
@@ -152,7 +186,7 @@ function App() {
                   key={index}
                 />
               )
-            })  
+            })
           }
         </div>
 
@@ -195,6 +229,7 @@ function App() {
                     key={index}
                     item={value}
                     toggleModal={toggleAdditionalBookInfoModal}
+                    addToBookshelf={addToBookshelf}
                   />
                 )
               }
@@ -210,7 +245,7 @@ function App() {
           isOpen={isBookAddInfo}
           item={chosenBook}
           toggleModal={toggleAdditionalBookInfoModal}
-          />
+        />
       </div>
 
 
