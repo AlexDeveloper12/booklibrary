@@ -14,6 +14,7 @@ import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import AddedToFavourite from './components/AddedToFavourite';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -222,21 +223,11 @@ function App() {
 
       </div>
 
-      <div className="row">
-        {
-          addedBookToFavourite ?
-            <div className="alert alert-success" role="alert">
-              This book has been added to your bookshelf!
-              <button type="button" data-dismiss="alert" aria-label="Close" >
-                <span aria-hidden="true" onClick={toggleAddToFavourite}>&times;</span>
-              </button>
-
-            </div>
-
-            : null
-        }
-
-      </div>
+      <AddedToFavourite
+        isOpen={addedBookToFavourite}
+        toggleFavouriteModal={toggleAddToFavourite}
+        />
+      
 
       <div className="row">
 
