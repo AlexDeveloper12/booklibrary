@@ -17,5 +17,7 @@ export const customStyles = {
       bottom: 'auto',
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
+      width:'85%',
+      height:'70%'
     },
   };

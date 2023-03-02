@@ -226,7 +226,7 @@ function App() {
               if (value !== null) {
                 return (
                   <Book
-                    key={index}
+                    key={value!==undefined ? value.id : index}
                     item={value}
                     toggleModal={toggleAdditionalBookInfoModal}
                     addToBookshelf={addToBookshelf}

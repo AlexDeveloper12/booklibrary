@@ -1,19 +1,11 @@
 import React from "react";
 import { AiFillBook } from 'react-icons/ai';
-import moment from "moment";
 import { printTypes, bookTypes } from "../components/Utils/Utils";
 import Rating from "./Rating";
 
 function Book({ item, toggleModal,addToBookshelf }) {
 
     console.log(item);
-
-    const formatDate = (dateTime) => {
-        var formattedDate = moment(dateTime).format("DD/MM/YYYY");
-
-        return formattedDate;
-    }
-
     const renderRating = (rating) => {
         if (rating !== undefined && rating !== null) {
             const roundedRating = Math.round(rating);
@@ -32,13 +24,13 @@ function Book({ item, toggleModal,addToBookshelf }) {
     return (
 
         <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-            <div className="card bg-light" onClick={() => toggleModal(item)}>
+            <div className="card bg-light">
                 {
                     item.volumeInfo.imageLinks !== undefined ?
                         <img class="card-img-top" src={item.volumeInfo.imageLinks.thumbnail} width={100} height={250} /> : null
                 }
 
-                <div className="card-body">
+                <div className="card-body" onClick={() => toggleModal(item)}>
                     <h5 className="card-title">
                         {item.volumeInfo.title}
                     </h5>
@@ -56,18 +48,6 @@ function Book({ item, toggleModal,addToBookshelf }) {
                             </div>
                         </div>
 
-
-                        <div className="mt-1 row">
-                            <div className="col-md-6">
-                                <span>
-                                    Published:
-                                </span>
-                            </div>
-                            <div className="col-md-6">
-                                {formatDate(item.volumeInfo.publishedDate)}
-                            </div>
-                        </div>
-
                         <div className="mt-1 row">
                             <div className="col-md-6">
                                 <span>
@@ -81,11 +61,11 @@ function Book({ item, toggleModal,addToBookshelf }) {
                         </div>
 
                     </p>
-                    <div className="row text-center">
+                </div>
+
+                <div className="row text-center">
                         <a href="#" className="card-link"> <AiFillBook size={40} color="brown" onClick={addToBookshelf} /> </a>
                     </div>
-
-                </div>
             </div>
         </div>
     )
