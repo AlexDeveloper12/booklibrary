@@ -11,6 +11,7 @@ import { bookTypes, filterButtonValues, printTypes } from './components/Utils/Ut
 import RadioButton from './components/RadioButton';
 import CustomDropdown from './components/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
+import Error from './components/Error';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -163,22 +164,11 @@ function App() {
           />
         </div>
 
-        <div className="row mb-4">
-
-          {
-            isError ?
-              <div className="alert alert-danger alert-dismissible" role="alert">
-                {errorMessage}
-                <button type="button" className="close" data-dismiss="alert" aria-label="Close" onClick={toggleError}>
-                  <span aria-hidden="true" style={{ color: 'white' }}> &times;</span>
-                </button>
-
-              </div>
-
-              : null
-          }
-
-        </div>
+        <Error
+          isError={isError}
+          toggleError={toggleError}
+          errorMessage={errorMessage}
+          />
 
         <div className="row form-group mb-4">
 
