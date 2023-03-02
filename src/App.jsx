@@ -12,6 +12,8 @@ import RadioButton from './components/RadioButton';
 import CustomDropdown from './components/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Error';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -157,18 +159,23 @@ function App() {
     <div>
       <div className='container'>
         <div className="row mb-4">
-          <Search
-            searchValue={searchValue}
-            handleSearch={handleSearch}
-            btnSearch={submitSearch}
-          />
+          <div className="input-group">
+            <Search
+              searchValue={searchValue}
+              handleSearch={handleSearch}
+              btnSearch={submitSearch}
+            />
+
+          </div>
+
         </div>
+
 
         <Error
           isError={isError}
           toggleError={toggleError}
           errorMessage={errorMessage}
-          />
+        />
 
         <div className="row form-group mb-4">
 
@@ -262,7 +269,7 @@ function App() {
       </div>
 
 
-    </div>
+    </div >
   )
 }
 
