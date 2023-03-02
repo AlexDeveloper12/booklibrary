@@ -5,6 +5,8 @@ import Rating from "./Rating";
 
 function Book({ item, toggleModal,addToBookshelf }) {
 
+    const {volumeInfo} = item;
+
     console.log(item);
     const renderRating = (rating) => {
         if (rating !== undefined && rating !== null) {
@@ -26,15 +28,15 @@ function Book({ item, toggleModal,addToBookshelf }) {
         <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
             <div className="card bg-light">
                 {
-                    item.volumeInfo.imageLinks !== undefined ?
-                        <img class="card-img-top" src={item.volumeInfo.imageLinks.thumbnail} width={100} height={250} /> : null
+                    volumeInfo.imageLinks !== undefined ?
+                        <img class="card-img-top" src={volumeInfo.imageLinks.thumbnail} width={100} height={250}  onClick={() => toggleModal(item)} /> : null
                 }
 
                 <div className="card-body" onClick={() => toggleModal(item)}>
                     <h5 className="card-title">
-                        {item.volumeInfo.title}
+                        {volumeInfo.title}
                     </h5>
-                    <h6 className="card-subtitle mb-2 text-muted">{item.volumeInfo.subtitle !== undefined ? <span>{item.volumeInfo.subtitle}</span> : <span>No subtitle</span>} </h6>
+                    <h6 className="card-subtitle mb-2 text-muted">{item.volumeInfo.subtitle !== undefined ? <span>{volumeInfo.subtitle}</span> : <span>No subtitle</span>} </h6>
                     <p className="card-text">
 
                         <div className="row">
@@ -43,7 +45,7 @@ function Book({ item, toggleModal,addToBookshelf }) {
                             </div>
                             <div className="col-md-5">
                                 {
-                                    item.volumeInfo.pageCount !== undefined ? <span>{item.volumeInfo.pageCount}</span> : null
+                                    volumeInfo.pageCount !== undefined ? <span>{volumeInfo.pageCount}</span> : null
                                 }
                             </div>
                         </div>
@@ -56,7 +58,7 @@ function Book({ item, toggleModal,addToBookshelf }) {
 
                             </div>
                             <div className="col-md-6">
-                                {renderRating(item.volumeInfo.averageRating)}
+                                {renderRating(volumeInfo.averageRating)}
                             </div>
                         </div>
 
@@ -64,7 +66,7 @@ function Book({ item, toggleModal,addToBookshelf }) {
                 </div>
 
                 <div className="row text-center">
-                        <a href="#" className="card-link"> <AiFillBook size={40} color="brown" onClick={addToBookshelf} /> </a>
+                        <a href="#" className="card-link"> <AiFillBook size={40} color="brown" onClick={()=>addToBookshelf(item)} /> </a>
                     </div>
             </div>
         </div>

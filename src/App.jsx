@@ -26,6 +26,7 @@ function App() {
   const [chosenBook, setChosenBook] = useState("");
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [addedBookToFavourite, setAddedBookToFavourite] = useState("");
 
   const toggleAdditionalBookInfoModal = (book) => {
     if (book !== null && book !== undefined) {
@@ -92,18 +93,23 @@ function App() {
 
   }
 
-  const addToBookshelf = () => {
+  const addToBookshelf = (item) => {
+    const { volumeInfo } = item;
     const bookshelfItem = {
-      id: "",
-      title: "",
-      description: "",
-      pageCount: "",
-      rating: 0,
-      imageUrl: "",
-      authors:""
+      id: item.id,
+      title: volumeInfo.title,
+      description: volumeInfo.description,
+      pageCount: volumeInfo.pageCount,
+      rating: volumeInfo.rating,
+      imageUrl: volumeInfo.imageLinks.thumbnail,
+      authors: volumeInfo.authors,
+      genres: volumeInfo.categories,
+      publisher: volumeInfo.publisher,
+      publishedDate: volumeInfo.publishedDate
     }
 
     localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
+    toggleAddToFavourite();
 
   }
 
@@ -134,6 +140,10 @@ function App() {
     setIsError(!isError);
   }
 
+  const toggleAddToFavourite = () => {
+    setAddedBookToFavourite(!addedBookToFavourite);
+  }
+
   if (loading) {
     return (
       <div className="text-center">
@@ -146,14 +156,11 @@ function App() {
     <div>
       <div className='container'>
         <div className="row mb-4">
-
           <Search
             searchValue={searchValue}
             handleSearch={handleSearch}
             btnSearch={submitSearch}
           />
-
-
         </div>
 
         <div className="row mb-4">
@@ -219,6 +226,22 @@ function App() {
       </div>
 
       <div className="row">
+        {
+          addedBookToFavourite ?
+            <div className="alert alert-success" role="alert">
+              This book has been added to your bookshelf!
+              <button type="button" data-dismiss="alert" aria-label="Close" >
+                <span aria-hidden="true" onClick={toggleAddToFavourite}>&times;</span>
+              </button>
+
+            </div>
+
+            : null
+        }
+
+      </div>
+
+      <div className="row">
 
         {
           books !== null && books !== undefined && books.length > 0 ?
@@ -226,7 +249,7 @@ function App() {
               if (value !== null) {
                 return (
                   <Book
-                    key={value!==undefined ? value.id : index}
+                    key={value !== undefined ? value.id : index}
                     item={value}
                     toggleModal={toggleAdditionalBookInfoModal}
                     addToBookshelf={addToBookshelf}
