@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
@@ -12,9 +12,8 @@ import RadioButton from './components/RadioButton';
 import CustomDropdown from './components/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Error';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import AddedToFavourite from './components/AddedToFavourite';
+import BookShelfItem from './components/BookShelfItem';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -31,6 +30,11 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [addedBookToFavourite, setAddedBookToFavourite] = useState("");
+  const [bookShelf, setBookShelf] = useState([]);
+
+  useEffect(() => {
+    getBookshelfItems();
+  }, [])
 
   const toggleAdditionalBookInfoModal = (book) => {
     if (book !== null && book !== undefined) {
@@ -119,8 +123,18 @@ function App() {
 
 
   const getBookshelfItems = () => {
+    var tempArray = [];
 
-    for (var index = 0; index < localStorage.length; index++) {
+    if (localStorage.length > 0) {
+      for (var index = 0; index < localStorage.length; index++) {
+        var key = localStorage.key(index);
+
+        var value = JSON.parse(localStorage.getItem(key));
+
+        tempArray.push(value);
+      }
+
+      setBookShelf(tempArray);
 
     }
   }
@@ -158,7 +172,20 @@ function App() {
 
   return (
     <div>
+
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <ul className='nav navbar-nav'>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Bookshelf</a></li>
+          </ul>
+        </div>
+
+
+      </nav>
+
       <div className='container'>
+
         <div className="row mb-4">
           <div className="input-group">
             <Search
@@ -217,8 +244,6 @@ function App() {
               type={bookTypes}
             />
           </div>
-
-
         </div>
 
       </div>
@@ -226,9 +251,44 @@ function App() {
       <AddedToFavourite
         isOpen={addedBookToFavourite}
         toggleFavouriteModal={toggleAddToFavourite}
-        />
-      
+      />
 
+      <div className="row">
+
+        {
+          bookShelf.length > 0 ?
+
+            <>
+            <table className='table table-striped'>
+              <thead className='thead-dark'>
+                <tr>
+                  <th scope="col">Image</th>
+                  <th scope="col">Title</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+              {
+                bookShelf.map((value, index) => {
+                  return (
+                    <BookShelfItem
+                      item={value}
+                    />
+                  )
+                })
+
+              }
+              </tbody>
+              </table>
+            </>
+            : null
+        }
+
+      </div>
+
+
+      {/* 
       <div className="row">
 
         {
@@ -249,7 +309,7 @@ function App() {
 
             : null
         }
-      </div>
+      </div> */}
 
       <div className="row">
         <BookAdditionalInfo
