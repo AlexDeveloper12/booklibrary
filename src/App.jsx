@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import Search from './components/Search';
 import { apiKey } from "../src/components/API/keys";
 import { apiURL } from "../src/components/API/calls";
@@ -15,7 +14,8 @@ import Error from './components/Error';
 import AddedToBookshelf from './components/AddedToBookshelf';
 import BookShelfItem from './components/BookShelfItem';
 import DeleteBookModal from './components/Modals/DeleteBookModal';
-import {customAuthors,customGenres,formatDate} from "./components/Utils/Utils";
+import { customAuthors, customGenres, formatDate } from "./components/Utils/Utils";
+import NavigationHeader from './components/Navigation/NavigationHeader';
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -32,13 +32,6 @@ function App() {
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [addedBookToFavourite, setAddedBookToFavourite] = useState("");
-  const [bookShelf, setBookShelf] = useState([]);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [chosenDeleteBookID, setChosenDeleteBookID] = useState(0);
-
-  useEffect(() => {
-    getBookshelfItems();
-  }, [])
 
   const toggleAdditionalBookInfoModal = (book) => {
     if (book !== null && book !== undefined) {
@@ -131,22 +124,6 @@ function App() {
 
   }
 
-  const getBookshelfItems = () => {
-    var tempArray = [];
-
-    if (localStorage.length > 0) {
-      for (var index = 0; index < localStorage.length; index++) {
-        var key = localStorage.key(index);
-
-        var value = JSON.parse(localStorage.getItem(key));
-
-        tempArray.push(value);
-      }
-
-      setBookShelf(tempArray);
-
-    }
-  }
 
   const handleBookFilter = (event) => {
     setBookFilter(event.target.value);
@@ -171,20 +148,6 @@ function App() {
     setAddedBookToFavourite(!addedBookToFavourite);
   }
 
-  const toggleDelete = (bookID) => {
-    setIsDeleteOpen(!isDeleteOpen);
-    if (bookID !== 0) {
-      setChosenDeleteBookID(bookID);
-    }
-
-  }
-
-  const removeFromBookshelf = (bookID) => {
-    toggleDelete(0);
-    localStorage.removeItem(`bookshelfitem-${bookID}`)
-    getBookshelfItems();
-  }
-
   if (loading) {
     return (
       <div className="text-center">
@@ -196,20 +159,53 @@ function App() {
   return (
     <div>
 
+      <NavigationHeader/>
+
       <div className='container'>
 
-        <div className="row mb-4">
-          <div className="input-group">
-            <Search
-              searchValue={searchValue}
-              handleSearch={handleSearch}
-              btnSearch={submitSearch}
-            />
+        <form>
+
+          <div className="form-group row">
+            <div className="input-group">
+              <Search
+                searchValue={searchValue}
+                handleSearch={handleSearch}
+                btnSearch={submitSearch}
+              />
+
+            </div>
 
           </div>
 
-        </div>
 
+          <div className="form-group row">
+            <label htmlFor="inputPrintType" className="col-sm-2 col-form-label">Print Type:</label>
+            <div className="col-sm-10">
+              <CustomDropdown
+                id={"printType"}
+                name={"printtype"}
+                value={chosenPrintType}
+                handler={handleTypeChange}
+                type={printTypes}
+              />
+            </div>
+          </div>
+
+          <div className="form-group row">
+            <label htmlFor="inputBookType" className="col-sm-2 col-form-label">Book Type:</label>
+            <div className="col-sm-10">
+
+              <CustomDropdown
+                id={"bookType"}
+                name={"booktype"}
+                value={chosenBookType}
+                handler={handleTypeChange}
+                type={bookTypes}
+              />
+            </div>
+          </div>
+
+        </form>
 
         <Error
           isError={isError}
@@ -234,30 +230,6 @@ function App() {
           }
         </div>
 
-        <div className="row mb-4">
-
-          <div className='mb-4'>
-            <CustomDropdown
-              id={"printType"}
-              name={"printtype"}
-              value={chosenPrintType}
-              handler={handleTypeChange}
-              type={printTypes}
-            />
-          </div>
-
-
-          <div className='mb-4'>
-            <CustomDropdown
-              id={"bookType"}
-              name={"booktype"}
-              value={chosenBookType}
-              handler={handleTypeChange}
-              type={bookTypes}
-            />
-          </div>
-        </div>
-
       </div>
 
       <AddedToBookshelf
@@ -265,45 +237,7 @@ function App() {
         toggleFavouriteModal={toggleAddToFavourite}
       />
 
-      {/* <div className="row">
 
-        {
-          bookShelf.length > 0 ?
-
-            <>
-              <table className='table table-striped table-dark'>
-                <thead className='thead-dark'>
-                  <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Author(s)</th>
-                    <th scope="col">Genre(s)</th>
-                    <th scope="col">Publisher</th>
-                    <th scope="col">Published</th>
-                    <th scope="col">Delete</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    bookShelf.map((value, index) => {
-                      return (
-                        <BookShelfItem
-                          item={value}
-                          openDeleteModal={toggleDelete}
-                          key={value.id}
-                        />
-                      )
-                    })
-
-                  }
-                </tbody>
-              </table>
-            </>
-            : null
-        }
-
-      </div> */}
 
       <div className="row">
 
@@ -341,19 +275,6 @@ function App() {
         />
       </div>
 
-      <div className="row">
-        {
-          isDeleteOpen ?
-            <DeleteBookModal
-              isDeleteOpen={isDeleteOpen}
-              toggleDeleteModal={toggleDelete}
-              btnDelete={removeFromBookshelf}
-              bookID={chosenDeleteBookID}
-            />
-
-            : null
-        }
-      </div>
     </div >
   )
 }
