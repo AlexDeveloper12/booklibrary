@@ -3,7 +3,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrash} from "@fortawesome/free-solid-svg-icons";
 import {customAuthors,customGenres, formatDate}  from "../components/Utils/Utils";
 
-function BookShelfItem({item}){
+function BookShelfItem({item, openDeleteModal}){
     return(
         <tr>
             <td scope="row" ><image src={item.imageUrl} width={300} height={200} /></td>
@@ -13,7 +13,7 @@ function BookShelfItem({item}){
             <td scope="row">Genre</td>
             <td scope="row">{item.publisher}</td>
             <td scope="row"> {formatDate(item.publishedDate)}</td>
-            <td><FontAwesomeIcon icon={faTrash} className="text-center" /></td>
+            <td><FontAwesomeIcon icon={faTrash} className="text-center" onClick={()=>openDeleteModal(item.id)} /></td>
         </tr>
     )
 

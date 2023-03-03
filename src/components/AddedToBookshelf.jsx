@@ -1,14 +1,14 @@
 import React from "react";
 
-function AddedToFavourite({ isOpen, toggleFavouriteModal }) {
+function AddedToBookshelf({ isOpen, toggleFavouriteModal }) {
     return (
         <div className="row">
             {
                 isOpen ?
                     <div className="alert alert-success" role="alert">
                         This book has been added to your bookshelf!
-                        <button type="button" data-dismiss="alert" aria-label="Close" >
-                            <span aria-hidden="true" onClick={toggleFavouriteModal}>&times;</span>
+                        <button type="button" className="btn btn-secondary" data-dismiss="alert" aria-label="Close" >
+                            <span aria-hidden="true" onClick={toggleFavouriteModal} style={{color:"white"}}>&times;</span>
                         </button>
                     </div>
 
@@ -20,4 +20,4 @@ function AddedToFavourite({ isOpen, toggleFavouriteModal }) {
 
 }
 
-export default AddedToFavourite;
+export default AddedToBookshelf;

@@ -24,6 +24,19 @@ export const customStyles = {
     },
   };
 
+  export const customDeleteStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width:'55%',
+        height:'40%'
+      },
+  }
+
  export const customAuthors = (volumeInfo) => {
 
     var authorString = "";

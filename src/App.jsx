@@ -12,8 +12,10 @@ import RadioButton from './components/RadioButton';
 import CustomDropdown from './components/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Error';
-import AddedToFavourite from './components/AddedToFavourite';
+import AddedToBookshelf from './components/AddedToBookshelf';
 import BookShelfItem from './components/BookShelfItem';
+import DeleteBookModal from './components/Modals/DeleteBookModal';
+import {customAuthors,customGenres,formatDate} from "./components/Utils/Utils";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -31,6 +33,8 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("");
   const [addedBookToFavourite, setAddedBookToFavourite] = useState("");
   const [bookShelf, setBookShelf] = useState([]);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [chosenDeleteBookID, setChosenDeleteBookID] = useState(0);
 
   useEffect(() => {
     getBookshelfItems();
@@ -91,7 +95,7 @@ function App() {
         })
         .catch(error => {
           console.log(`An error occurred searching for the book ${error}`)
-          console.log(`${apiURL}q=${searchValue}&key=${apiKey}&maxResults=${maxResults}${additionalQueryParams}`)
+          setErrorMessage(error);
         })
     }
     else {
@@ -103,6 +107,12 @@ function App() {
 
   const addToBookshelf = (item) => {
     const { volumeInfo } = item;
+
+    const customAuthorItem = customAuthors(volumeInfo);
+    const customGenreItem = customGenres(volumeInfo);
+    const customDate = formatDate(volumeInfo.publishedDate);
+
+
     const bookshelfItem = {
       id: item.id,
       title: volumeInfo.title,
@@ -110,17 +120,16 @@ function App() {
       pageCount: volumeInfo.pageCount,
       rating: volumeInfo.rating,
       imageUrl: volumeInfo.imageLinks.thumbnail,
-      authors: volumeInfo.authors,
-      genres: volumeInfo.categories,
+      authors: customAuthorItem,
+      genres: customGenreItem,
       publisher: volumeInfo.publisher,
-      publishedDate: volumeInfo.publishedDate
+      publishedDate: customDate
     }
 
     localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
     toggleAddToFavourite();
 
   }
-
 
   const getBookshelfItems = () => {
     var tempArray = [];
@@ -160,6 +169,20 @@ function App() {
 
   const toggleAddToFavourite = () => {
     setAddedBookToFavourite(!addedBookToFavourite);
+  }
+
+  const toggleDelete = (bookID) => {
+    setIsDeleteOpen(!isDeleteOpen);
+    if (bookID !== 0) {
+      setChosenDeleteBookID(bookID);
+    }
+
+  }
+
+  const removeFromBookshelf = (bookID) => {
+    toggleDelete(0);
+    localStorage.removeItem(`bookshelfitem-${bookID}`)
+    getBookshelfItems();
   }
 
   if (loading) {
@@ -237,12 +260,12 @@ function App() {
 
       </div>
 
-      <AddedToFavourite
+      <AddedToBookshelf
         isOpen={addedBookToFavourite}
         toggleFavouriteModal={toggleAddToFavourite}
       />
 
-      <div className="row">
+      {/* <div className="row">
 
         {
           bookShelf.length > 0 ?
@@ -267,6 +290,8 @@ function App() {
                       return (
                         <BookShelfItem
                           item={value}
+                          openDeleteModal={toggleDelete}
+                          key={value.id}
                         />
                       )
                     })
@@ -278,10 +303,8 @@ function App() {
             : null
         }
 
-      </div>
+      </div> */}
 
-
-      {/* 
       <div className="row">
 
         {
@@ -302,7 +325,13 @@ function App() {
 
             : null
         }
-      </div> */}
+      </div>
+
+      {
+        /**
+         * MODALS
+         */
+      }
 
       <div className="row">
         <BookAdditionalInfo
@@ -312,7 +341,19 @@ function App() {
         />
       </div>
 
+      <div className="row">
+        {
+          isDeleteOpen ?
+            <DeleteBookModal
+              isDeleteOpen={isDeleteOpen}
+              toggleDeleteModal={toggleDelete}
+              btnDelete={removeFromBookshelf}
+              bookID={chosenDeleteBookID}
+            />
 
+            : null
+        }
+      </div>
     </div >
   )
 }
