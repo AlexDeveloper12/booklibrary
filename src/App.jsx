@@ -173,17 +173,6 @@ function App() {
   return (
     <div>
 
-      <nav className="navbar navbar-default">
-        <div className="container-fluid">
-          <ul className='nav navbar-nav'>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Bookshelf</a></li>
-          </ul>
-        </div>
-
-
-      </nav>
-
       <div className='container'>
 
         <div className="row mb-4">
@@ -259,27 +248,31 @@ function App() {
           bookShelf.length > 0 ?
 
             <>
-            <table className='table table-striped'>
-              <thead className='thead-dark'>
-                <tr>
-                  <th scope="col">Image</th>
-                  <th scope="col">Title</th>
-                  <th scope="col">Description</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-              {
-                bookShelf.map((value, index) => {
-                  return (
-                    <BookShelfItem
-                      item={value}
-                    />
-                  )
-                })
+              <table className='table table-striped table-dark'>
+                <thead className='thead-dark'>
+                  <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Author(s)</th>
+                    <th scope="col">Genre(s)</th>
+                    <th scope="col">Publisher</th>
+                    <th scope="col">Published</th>
+                    <th scope="col">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    bookShelf.map((value, index) => {
+                      return (
+                        <BookShelfItem
+                          item={value}
+                        />
+                      )
+                    })
 
-              }
-              </tbody>
+                  }
+                </tbody>
               </table>
             </>
             : null

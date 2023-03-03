@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const printTypes = ['all', 'books', 'magazines'];
 export const bookTypes = ['partial', 'full', 'free-ebooks', 'paid-ebooks', 'ebooks'];
 export const filterButtonValues = [{
@@ -21,3 +23,47 @@ export const customStyles = {
       height:'70%'
     },
   };
+
+ export const customAuthors = (volumeInfo) => {
+
+    var authorString = "";
+
+    if (volumeInfo !== null && volumeInfo !== undefined) {
+
+        if (volumeInfo.authors !== null && volumeInfo.authors !== undefined) {
+
+            volumeInfo.authors.map((value, index) => {
+                authorString += `${value}`
+                if (index > 0) {
+                    authorString += authorString + ","
+                }
+            })
+        }
+    }
+
+    return authorString;
+}
+
+export const customGenres = (volumeInfo) => {
+    var genreString = "";
+
+    if (volumeInfo !== null && volumeInfo !== undefined) {
+        if (volumeInfo.categories !== null && volumeInfo.categories !== undefined) {
+            volumeInfo.categories.map((value, index) => {
+                genreString += `${value}`
+                if (index > 0) {
+                    genreString += genreString + ","
+                }
+            })
+        }
+    }
+
+    return genreString;
+}
+
+
+export const formatDate = (dateTime) => {
+    var formattedDate = moment(dateTime).format("DD/MM/YYYY");
+
+    return formattedDate;
+}

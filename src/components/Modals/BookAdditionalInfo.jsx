@@ -2,55 +2,14 @@ import React from "react";
 import ReactModal from "react-modal";
 import moment from "moment";
 import { customStyles } from "../Utils/Utils";
+import { customAuthors, customGenres, formatDate } from "../Utils/Utils";
 
 ReactModal.setAppElement('#root');
 
 function BookAdditionalInfo({ item, isOpen, toggleModal }) {
 
-    const {saleInfo,volumeInfo} = item;
+    const { saleInfo, volumeInfo } = item;
 
-    const customAuthors = () => {
-
-        var authorString = "";
-
-        if (volumeInfo !== null && volumeInfo !== undefined) {
-
-            if (volumeInfo.authors !== null && volumeInfo.authors !== undefined) {
-
-                volumeInfo.authors.map((value, index) => {
-                    authorString += `${value}`
-                    if (index > 0) {
-                        authorString += authorString + ","
-                    }
-                })
-            }
-        }
-
-        return authorString;
-    }
-
-    const customGenres = () => {
-        var genreString = "";
-
-        if (volumeInfo !== null && volumeInfo !== undefined) {
-            if (volumeInfo.categories !== null && volumeInfo.categories !== undefined) {
-                volumeInfo.categories.map((value, index) => {
-                    genreString += `${value}`
-                    if (index > 0) {
-                        genreString += genreString + ","
-                    }
-                })
-            }
-        }
-
-        return genreString;
-    }
-
-    const formatDate = (dateTime) => {
-        var formattedDate = moment(dateTime).format("DD/MM/YYYY");
-
-        return formattedDate;
-    }
 
     if (item !== null && item !== undefined) {
 
@@ -110,7 +69,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                                 Author(s):
                             </div>
                             <div className="col-md-11">
-                                <span> {customAuthors()}</span>
+                                <span> {customAuthors(volumeInfo)}</span>
                             </div>
                         </div>
 
@@ -119,7 +78,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                                 Genre(s):
                             </div>
                             <div className="col-md-11">
-                                <span>{customGenres()}</span>
+                                <span>{customGenres(volumeInfo)}</span>
                             </div>
                         </div>
 
