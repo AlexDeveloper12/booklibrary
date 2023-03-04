@@ -101,26 +101,37 @@ function App() {
   const addToBookshelf = (item) => {
     const { volumeInfo } = item;
 
-    const customAuthorItem = customAuthors(volumeInfo);
-    const customGenreItem = customGenres(volumeInfo);
-    const customDate = formatDate(volumeInfo.publishedDate);
+    var bookID = item.id;
+
+    const bookInBookshelf = (localStorage.getItem(`bookshelfitem-${bookID}`) !== null);
+
+    if (bookInBookshelf) {
+      setErrorMessage("This book is already in your bookshelf. Please choose another!")
+      setIsError(true);
+    } else {
+
+      const customAuthorItem = customAuthors(volumeInfo);
+      const customGenreItem = customGenres(volumeInfo);
+      const customDate = formatDate(volumeInfo.publishedDate);
 
 
-    const bookshelfItem = {
-      id: item.id,
-      title: volumeInfo.title,
-      description: volumeInfo.description,
-      pageCount: volumeInfo.pageCount,
-      rating: volumeInfo.rating,
-      imageUrl: volumeInfo.imageLinks.thumbnail,
-      authors: customAuthorItem,
-      genres: customGenreItem,
-      publisher: volumeInfo.publisher,
-      publishedDate: customDate
+      const bookshelfItem = {
+        id: item.id,
+        title: volumeInfo.title,
+        description: volumeInfo.description,
+        pageCount: volumeInfo.pageCount,
+        rating: volumeInfo.rating,
+        imageUrl: volumeInfo.imageLinks.thumbnail,
+        authors: customAuthorItem,
+        genres: customGenreItem,
+        publisher: volumeInfo.publisher,
+        publishedDate: customDate
+      }
+
+      localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
+      toggleAddToFavourite();
     }
 
-    localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
-    toggleAddToFavourite();
 
   }
 
