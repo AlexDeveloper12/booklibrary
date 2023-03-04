@@ -50,7 +50,7 @@ function Bookshelf() {
             <div className="row">
                 <NavigationHeader/>
             </div>
-            <div className="row">
+            <div className="row mt-4">
 
                 {
                     bookShelf.length > 0 ?
