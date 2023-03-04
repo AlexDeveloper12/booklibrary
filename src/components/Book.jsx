@@ -25,7 +25,7 @@ function Book({ item, toggleModal,addToBookshelf }) {
 
     return (
 
-        <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis',marginLeft:'10px',width:'350px' }}>
             <div className="card bg-light">
                 {
                     volumeInfo.imageLinks !== undefined ?

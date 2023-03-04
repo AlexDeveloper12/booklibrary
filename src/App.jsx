@@ -182,6 +182,12 @@ function App() {
                           errorMessage={errorMessage}
                         />
 
+
+                        <AddedToBookshelf
+                          isOpen={addedBookToFavourite}
+                          toggleFavouriteModal={toggleAddToFavourite}
+                        />
+
                       </div>
                     </div>
                     <div className="form-group row">
@@ -244,13 +250,6 @@ function App() {
 
       </div>
 
-      <AddedToBookshelf
-        isOpen={addedBookToFavourite}
-        toggleFavouriteModal={toggleAddToFavourite}
-      />
-
-
-
       <div className="row">
 
         {
@@ -272,12 +271,6 @@ function App() {
             : null
         }
       </div>
-
-      {
-        /**
-         * MODALS
-         */
-      }
 
       <div className="row">
         <BookAdditionalInfo
