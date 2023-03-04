@@ -159,59 +159,71 @@ function App() {
   return (
     <div>
 
-      <NavigationHeader/>
+      <NavigationHeader />
+
+      <section id="cover" className="mt-4">
+        <div id="cover-caption">
+          <div className="container">
+            <div className="row text-white">
+              <div className='col-md-12'>
+                <div className='px-2'>
+                  <form className='justify-content-center text-center'>
+                    <div className='form-group'>
+                      <div className="input-group">
+                        <Search
+                          searchValue={searchValue}
+                          handleSearch={handleSearch}
+                          btnSearch={submitSearch}
+                        />
+
+                        <Error
+                          isError={isError}
+                          toggleError={toggleError}
+                          errorMessage={errorMessage}
+                        />
+
+                      </div>
+                    </div>
+                    <div className="form-group row">
+                      <div className='input-group'>
+                        <div className="col-sm-10">
+                          <CustomDropdown
+                            id={"printType"}
+                            name={"printtype"}
+                            value={chosenPrintType}
+                            handler={handleTypeChange}
+                            type={printTypes}
+                          />
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <div className="form-group row">
+                      <div className='input-group'>
+                        <div className="col-sm-10">
+                          <CustomDropdown
+                            id={"bookType"}
+                            name={"booktype"}
+                            value={chosenBookType}
+                            handler={handleTypeChange}
+                            type={bookTypes}
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       <div className='container'>
-
-        <form>
-
-          <div className="form-group row">
-            <div className="input-group">
-              <Search
-                searchValue={searchValue}
-                handleSearch={handleSearch}
-                btnSearch={submitSearch}
-              />
-
-            </div>
-
-          </div>
-
-
-          <div className="form-group row">
-            <label htmlFor="inputPrintType" className="col-sm-2 col-form-label">Print Type:</label>
-            <div className="col-sm-10">
-              <CustomDropdown
-                id={"printType"}
-                name={"printtype"}
-                value={chosenPrintType}
-                handler={handleTypeChange}
-                type={printTypes}
-              />
-            </div>
-          </div>
-
-          <div className="form-group row">
-            <label htmlFor="inputBookType" className="col-sm-2 col-form-label">Book Type:</label>
-            <div className="col-sm-10">
-
-              <CustomDropdown
-                id={"bookType"}
-                name={"booktype"}
-                value={chosenBookType}
-                handler={handleTypeChange}
-                type={bookTypes}
-              />
-            </div>
-          </div>
-
-        </form>
-
-        <Error
-          isError={isError}
-          toggleError={toggleError}
-          errorMessage={errorMessage}
-        />
 
         <div className="row form-group mb-4">
 

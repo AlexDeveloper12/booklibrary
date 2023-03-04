@@ -8,7 +8,7 @@ function Error({isError,toggleError,errorMessage}){
             isError ?
               <div className="alert alert-danger alert-dismissible" role="alert">
                 <span>{errorMessage}</span> 
-                <button type="button" className="close btn btn-secondary" data-dismiss="alert" aria-label="Close" onClick={toggleError}>
+                <button type="button" className="close btn btn-secondary mx-2" data-dismiss="alert" aria-label="Close" onClick={toggleError}>
                   <span aria-hidden="true" style={{ color: 'white' }}> &times;</span>
                 </button>
 
