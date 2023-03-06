@@ -13,18 +13,18 @@ export const filterButtonValues = [{
 
 export const customStyles = {
     content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      width:'85%',
-      height:'70%'
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        width: '85%',
+        height: '70%'
     },
-  };
+};
 
-  export const customDeleteStyles = {
+export const customDeleteStyles = {
     content: {
         top: '50%',
         left: '50%',
@@ -32,18 +32,19 @@ export const customStyles = {
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        width:'55%',
-        height:'40%'
-      },
-  }
+        width: '55%',
+        height: '40%'
+    },
+}
 
- export const customAuthors = (volumeInfo) => {
+export const customAuthors = (volumeInfo) => {
 
     var authorString = "";
 
     if (volumeInfo !== null && volumeInfo !== undefined) {
 
         if (volumeInfo.authors !== null && volumeInfo.authors !== undefined) {
+            console.log(volumeInfo.authors)
 
             volumeInfo.authors.map((value, index) => {
                 authorString += `${value}`
@@ -55,6 +56,8 @@ export const customStyles = {
     }
 
     return authorString;
+
+
 }
 
 export const customGenres = (volumeInfo) => {
@@ -79,4 +82,41 @@ export const formatDate = (dateTime) => {
     var formattedDate = moment(dateTime).format("DD/MM/YYYY");
 
     return formattedDate;
+}
+
+export const customBookShelfAuthor = (data) => {
+    var bookShelfAuthorString = "";
+
+    if (Array.isArray(data)) {
+        data.map((value, index) => {
+
+            if (index > 0) {
+                bookShelfAuthorString + ", " + bookShelfAuthorString
+            } else {
+                bookShelfAuthorString += value
+            }
+        })
+    } else {
+        bookShelfAuthorString = data === "" ? "No authors" : data;
+    }
+    return bookShelfAuthorString;
+}
+
+export const customBookShelfGenre = (data) => {
+    var bookShelfGenreString = "";
+
+    if (Array.isArray(data)) {
+        data.map((value, index) => {
+            if (index > 0) {
+                bookShelfGenreString + ", " + bookShelfGenreString;
+            }
+            else {
+                bookShelfGenreString += value
+            }
+        })
+    } else {
+        bookShelfGenreString = data === "" ? "No genres" : data;
+    }
+
+    return bookShelfGenreString;
 }

@@ -55,8 +55,11 @@ function Bookshelf() {
                 {
                     bookShelf.length > 0 ?
 
+                    
+
                         <>
-                            <table className='table table-striped table-light'>
+                            <span className="mb-2">Bookshelf count: {bookShelf.length}</span>
+                            <table className='table table-striped table-light' style={{width:'80%',marginLeft:'10%'}}>
                                 <thead className='thead-dark'>
                                     <tr>
                                         <th scope="col">Image</th>
@@ -85,7 +88,7 @@ function Bookshelf() {
                                 </tbody>
                             </table>
                         </>
-                        : null
+                        : <div style={{backgroundColor:'#2c82c9'}} className="row justify-content-center">  <span className="text-center text-white p-2" >No books in bookshelf</span></div>
                 }
 
             </div>

@@ -3,7 +3,7 @@ import React from "react";
 function Search({ searchValue, handleSearch, btnSearch }) {
     return (
         <div className="col-md-12">
-            <div className="input-group mb-3 justify-content-center">
+            <div className="input-group mb-3">
                 <div className="input-group-prepend">
                     <input
                         type="text"

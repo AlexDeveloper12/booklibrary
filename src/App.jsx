@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
@@ -12,8 +12,6 @@ import CustomDropdown from './components/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Error';
 import AddedToBookshelf from './components/AddedToBookshelf';
-import BookShelfItem from './components/BookShelfItem';
-import DeleteBookModal from './components/Modals/DeleteBookModal';
 import { customAuthors, customGenres, formatDate } from "./components/Utils/Utils";
 import NavigationHeader from './components/Navigation/NavigationHeader';
 
@@ -178,7 +176,7 @@ function App() {
             <div className="row text-white">
               <div className='col-md-12'>
                 <div className='px-2'>
-                  <form className='justify-content-center text-center'>
+                  <form>
                     <div className='form-group'>
                       <div className="input-group">
                         <Search
@@ -282,6 +280,10 @@ function App() {
             : null
         }
       </div>
+
+      {/**
+       * hopefully the component for pagination will go here
+       */}
 
       <div className="row">
         <BookAdditionalInfo
