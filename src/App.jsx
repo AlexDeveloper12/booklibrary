@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
@@ -14,11 +14,12 @@ import Error from './components/Error';
 import AddedToBookshelf from './components/AddedToBookshelf';
 import { customAuthors, customGenres, formatDate } from "./components/Utils/Utils";
 import NavigationHeader from './components/Navigation/NavigationHeader';
+import ReactPaginate from "react-paginate";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
   const [books, setBooks] = useState([]);
-  const [maxResults, setMaxResults] = useState(10);
+  const [maxResults, setMaxResults] = useState(20);
   const [loading, setLoading] = useState(false);
   const [chosenPrintType, setChosenPrintType] = useState("");
   const [chosenBookType, setChosenBookType] = useState("");
@@ -159,12 +160,11 @@ function App() {
 
   if (loading) {
     return (
-      <div className="text-center">
-        <ClipLoader loading={loading} size={150} />
+      <div className="text-center mt-2">
+        <ClipLoader loading={loading} size={150} color={"blue"} />
       </div>
     )
   }
-
   return (
     <div>
 
@@ -280,10 +280,6 @@ function App() {
             : null
         }
       </div>
-
-      {/**
-       * hopefully the component for pagination will go here
-       */}
 
       <div className="row">
         <BookAdditionalInfo

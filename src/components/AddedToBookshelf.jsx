@@ -7,8 +7,8 @@ function AddedToBookshelf({ isOpen, toggleFavouriteModal }) {
                 isOpen ?
                     <div className="alert alert-success" role="alert">
                         This book has been added to your bookshelf!
-                        <button type="button" className="btn btn-secondary mx-2" data-dismiss="alert" aria-label="Close" >
-                            <span aria-hidden="true" onClick={toggleFavouriteModal} style={{color:"white"}}>&times;</span>
+                        <button type="button" className="btn btn-secondary mx-2" data-dismiss="alert" aria-label="Close" onClick={toggleFavouriteModal} >
+                            <span aria-hidden="true" style={{ color: "white" }}>&times;</span>
                         </button>
                     </div>
 
