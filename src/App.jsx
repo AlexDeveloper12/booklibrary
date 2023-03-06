@@ -14,7 +14,6 @@ import Error from './components/Error';
 import AddedToBookshelf from './components/AddedToBookshelf';
 import { customAuthors, customGenres, formatDate } from "./components/Utils/Utils";
 import NavigationHeader from './components/Navigation/NavigationHeader';
-import ReactPaginate from "react-paginate";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");

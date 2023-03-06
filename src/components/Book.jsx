@@ -1,7 +1,6 @@
 import React from "react";
-import { AiFillBook } from 'react-icons/ai';
-import { printTypes, bookTypes } from "../components/Utils/Utils";
 import Rating from "./Rating";
+import { AiFillBook } from "react-icons/ai";
 
 function Book({ item, toggleModal,addToBookshelf }) {
 
@@ -24,12 +23,11 @@ function Book({ item, toggleModal,addToBookshelf }) {
     }
 
     return (
-
         <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis',marginLeft:'10px',width:'350px' }}>
             <div className="card bg-light">
                 {
                     volumeInfo.imageLinks !== undefined ?
-                        <img class="card-img-top" src={volumeInfo.imageLinks.thumbnail} width={100} height={250}  onClick={() => toggleModal(item)} /> : null
+                        <img className="card-img-top" src={volumeInfo.imageLinks.thumbnail} width={100} height={250}  onClick={() => toggleModal(item)} /> : null
                 }
 
                 <div className="card-body" onClick={() => toggleModal(item)}>
@@ -37,7 +35,7 @@ function Book({ item, toggleModal,addToBookshelf }) {
                         {volumeInfo.title}
                     </h5>
                     <h6 className="card-subtitle mb-2 text-muted">{item.volumeInfo.subtitle !== undefined ? <span>{volumeInfo.subtitle}</span> : <span>No subtitle</span>} </h6>
-                    <p className="card-text">
+                    <div className="card-text">
 
                         <div className="row">
                             <div className="col-md-7">
@@ -62,11 +60,13 @@ function Book({ item, toggleModal,addToBookshelf }) {
                             </div>
                         </div>
 
-                    </p>
+                    </div>
                 </div>
 
                 <div className="row text-center">
                         <a href="#" className="card-link"> <AiFillBook size={40} color="brown" onClick={()=>addToBookshelf(item)} /> </a>
+                        <a href="#" className="card-link" onClick={()=> {event.preventDefault();toggleModal(item)}} >Learn More</a>
+                        
                     </div>
             </div>
         </div>

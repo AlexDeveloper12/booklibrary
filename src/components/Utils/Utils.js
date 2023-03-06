@@ -22,6 +22,7 @@ export const customStyles = {
         width: '85%',
         height: '70%'
     },
+    overlay: {zIndex: 1000}
 };
 
 export const customDeleteStyles = {

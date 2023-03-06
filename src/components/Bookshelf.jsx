@@ -83,7 +83,6 @@ function Bookshelf() {
                                                 />
                                             )
                                         })
-
                                     }
                                 </tbody>
                             </table>
