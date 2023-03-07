@@ -1,6 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
-import moment from "moment";
+import {Button} from "@mui/material";
 import { customStyles } from "../Utils/Utils";
 import { customAuthors, customGenres, formatDate } from "../Utils/Utils";
 
@@ -93,7 +93,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
 
                         <div className="row ">
                             <div className="col-md-12 text-center">
-                                <button type="button" className="btn btn-primary" onClick={toggleModal}>Close</button>
+                                <Button variant="outlined" onClick={toggleModal} >Close</Button>
                             </div>
                         </div>
 

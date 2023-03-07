@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Table, TableContainer, Paper, TableRow, TableHead, TableCell, TableBody } from "@mui/material";
 import BookShelfItem from "./BookShelfItem";
 import NavigationHeader from "./Navigation/NavigationHeader";
 import DeleteBookModal from "./Modals/DeleteBookModal";
@@ -48,18 +49,63 @@ function Bookshelf() {
     return (
         <div>
             <div className="row">
-                <NavigationHeader/>
+                <NavigationHeader />
             </div>
             <div className="row mt-4">
 
                 {
                     bookShelf.length > 0 ?
-
-                    
-
                         <>
                             <span className="mb-2">Bookshelf count: {bookShelf.length}</span>
-                            <table className='table table-striped table-light' style={{width:'80%',marginLeft:'10%'}}>
+
+                            <TableContainer component={Paper}>
+                                <Table size="medium">
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell align="center" >
+                                                Image
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Title
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Description
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Author(s)
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Genre(s)
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Publisher
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Published
+                                            </TableCell>
+                                            <TableCell align="center">
+                                                Delete
+                                            </TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+                                        {
+                                            bookShelf.map((value, index) => {
+                                                return (
+                                                    <BookShelfItem
+                                                        item={value}
+                                                        openDeleteModal={toggleDelete}
+                                                        key={value.id}
+                                                    />
+                                                )
+                                            })
+                                        }
+                                    </TableBody>
+                                </Table>
+
+                            </TableContainer>
+
+                            {/* <table className='table table-striped table-light' style={{width:'80%',marginLeft:'10%'}}>
                                 <thead className='thead-dark'>
                                     <tr>
                                         <th scope="col">Image</th>
@@ -85,9 +131,9 @@ function Bookshelf() {
                                         })
                                     }
                                 </tbody>
-                            </table>
+                            </table> */}
                         </>
-                        : <div style={{backgroundColor:'#2c82c9'}} className="row justify-content-center">  <span className="text-center text-white p-2" >No books in bookshelf</span></div>
+                        : <div style={{ backgroundColor: '#2c82c9' }} className="row justify-content-center">  <span className="text-center text-white p-2" >No books in bookshelf</span></div>
                 }
 
             </div>

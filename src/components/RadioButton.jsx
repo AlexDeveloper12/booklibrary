@@ -1,8 +1,11 @@
 import React from "react";
+import {FormControlLabel,Radio} from "@mui/material";
 
 function RadioButton({ label, value, index, filterChange }) {
     return (
         <div>
+            <FormControlLabel value={value} control={<Radio name="filterrb" />} label={label}/>
+{/* 
             <input
                 type="radio"
                 name="filterrb"
@@ -13,7 +16,7 @@ function RadioButton({ label, value, index, filterChange }) {
             />
             <label className="form-check-label" htmlFor={`filter-value-rb-${index}`} style={{marginLeft:'20px'}} >
                 {label}
-            </label>
+            </label> */}
         </div>
         
     )

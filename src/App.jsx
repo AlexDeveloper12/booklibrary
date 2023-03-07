@@ -14,6 +14,7 @@ import Error from './components/Error';
 import AddedToBookshelf from './components/AddedToBookshelf';
 import { customAuthors, customGenres, formatDate } from "./components/Utils/Utils";
 import NavigationHeader from './components/Navigation/NavigationHeader';
+import { RadioGroup } from "@mui/material";
 
 function App() {
   const [searchValue, setSearchValue] = useState("");
@@ -52,6 +53,8 @@ function App() {
         setChosenBookType(event.target.value);
         break;
     }
+
+    console.log(event);
 
     console.log(event.target.value);
   }
@@ -169,6 +172,10 @@ function App() {
 
       <NavigationHeader />
 
+      <div style={{textAlign:'center'}}>
+        <span style={{fontSize:'20px'}}>Book Search</span>
+      </div>
+
       <section id="cover" className="mt-4">
         <div id="cover-caption">
           <div className="container">
@@ -200,15 +207,14 @@ function App() {
                     </div>
                     <div className="form-group row">
                       <div className='input-group'>
-                        <div className="col-sm-10">
-                          <CustomDropdown
-                            id={"printType"}
-                            name={"printtype"}
-                            value={chosenPrintType}
-                            handler={handleTypeChange}
-                            type={printTypes}
-                          />
-                        </div>
+
+                        <CustomDropdown
+                          id={"printType"}
+                          name={"printtype"}
+                          value={chosenPrintType}
+                          handler={handleTypeChange}
+                          type={printTypes}
+                        />
 
                       </div>
 
@@ -216,15 +222,14 @@ function App() {
 
                     <div className="form-group row">
                       <div className='input-group'>
-                        <div className="col-sm-10">
-                          <CustomDropdown
-                            id={"bookType"}
-                            name={"booktype"}
-                            value={chosenBookType}
-                            handler={handleTypeChange}
-                            type={bookTypes}
-                          />
-                        </div>
+
+                        <CustomDropdown
+                          id={"bookType"}
+                          name={"booktype"}
+                          value={chosenBookType}
+                          handler={handleTypeChange}
+                          type={bookTypes}
+                        />
                       </div>
                     </div>
                   </form>
@@ -240,6 +245,12 @@ function App() {
       <div className='container'>
 
         <div className="row form-group mb-4">
+
+          <RadioGroup
+            name="searchfilter"
+          >
+
+          </RadioGroup>
 
           {
             filterButtonValues.map(({ label, value }, index) => {

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactModal from "react-modal";
 import { customDeleteStyles } from "../Utils/Utils";
+import {Button} from "@mui/material";
 
 ReactModal.setAppElement('#root');
 
@@ -18,8 +19,11 @@ function DeleteBookModal({ isDeleteOpen, toggleDeleteModal, btnDelete, bookID })
                 </div>
                 <div className="row mt-4">
                     <div className="col-md-12 text-center">
-                        <button type="button" className="btn btn-primary" onClick={() => btnDelete(bookID)} >Delete</button>
-                        <button type="button" className="btn btn-danger " onClick={toggleDeleteModal} >Cancel</button>
+                        {/* <button type="button" className="btn btn-primary" onClick={() => btnDelete(bookID)} >Delete</button>
+                        <button type="button" className="btn btn-danger " onClick={toggleDeleteModal} >Cancel</button> */}
+                        <Button variant="outlined" color="error" onClick={() => btnDelete(bookID)} >Delete</Button>
+                        <Button variant="outlined" color="primary" onClick={toggleDeleteModal}>Cancel </Button>
+
 
                     </div>
                 </div>
