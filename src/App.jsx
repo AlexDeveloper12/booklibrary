@@ -4,7 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import './App.css';
 import Search from './components/Search';
 // import { apiKey } from "../src/components/API/keys";
-import { apiURL } from "../src/components/API/calls";
+// import { apiURL } from "../src/components/API/calls";
 import Book from './components/Book';
 import { bookTypes, filterButtonValues, printTypes } from './components/Utils/Utils';
 import RadioButton from './components/RadioButton';
@@ -79,11 +79,11 @@ function App() {
 
       setLoading(true);
 
-      axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${process.env.REACT_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
+      axios.get(`${process.env.REACT_APP_API_URL}q=${filterValue}${searchValue}&key=${process.env.REACT_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
         .then(response => {
           if (response !== null && response.data !== null) {
             setBooks(response.data.items);
-            console.log(`${apiURL}q=${filterValue}${searchValue}&key=${process.env.REACT_APP_GOOGLE_API_KEY}&maxResults=${maxResults}${additionalQueryParams}`)
+            console.log(`${process.env.REACT_APP_API_URL}q=${filterValue}${searchValue}&key=${process.env.REACT_APP_GOOGLE_API_KEY}&maxResults=${maxResults}${additionalQueryParams}`)
             setLoading(false);
           }
         })
