@@ -16,9 +16,9 @@ function Book({ item, toggleModal, addToBookshelf }) {
     }
 
     return (
-        <div className="col-md-3 mb-4" style={{ height: '600px', overflow: 'hidden', textOverflow: 'ellipsis', marginLeft: '10px', width: '350px' }}>
+        <div className="col-md-3 mb-4" style={{ height: '700px', overflow: 'hidden', textOverflow: 'ellipsis', marginLeft: '10px', width: '350px' }}>
 
-            <Card sx={{ maxWidth: 345 }}>
+            <Card sx={{ maxWidth: 345,maxHeight:700 }}>
                 <CardHeader
                     title={volumeInfo.title}
                 />
@@ -44,6 +44,11 @@ function Book({ item, toggleModal, addToBookshelf }) {
                         </div>
 
                     </Typography>
+
+                    <div className="row">
+                        <Button variant="contained" color="primary" className="mb-3 mt-1" onClick={()=>addToBookshelf(item)} >Add to Bookshelf</Button>
+                        <Button variant="contained" color="success" onClick={()=>{event.preventDefault();toggleModal(item)}} >Learn More</Button>
+                    </div>
 
                 </CardContent>
             </Card>

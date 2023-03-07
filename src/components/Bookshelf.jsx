@@ -12,7 +12,7 @@ function Bookshelf() {
 
     useEffect(() => {
         getBookshelfItems();
-    }, [])
+    }, [bookShelf])
 
 
     const getBookshelfItems = () => {
@@ -43,7 +43,6 @@ function Bookshelf() {
         if (bookID !== 0) {
             setChosenDeleteBookID(bookID);
         }
-
     }
 
     return (
@@ -58,7 +57,7 @@ function Bookshelf() {
                         <>
                             <span className="mb-2">Bookshelf count: {bookShelf.length}</span>
 
-                            <TableContainer component={Paper}>
+                            <TableContainer component={Paper} style={{width:'90%',margin:'0 auto'}}>
                                 <Table size="medium">
                                     <TableHead>
                                         <TableRow>
@@ -105,33 +104,6 @@ function Bookshelf() {
 
                             </TableContainer>
 
-                            {/* <table className='table table-striped table-light' style={{width:'80%',marginLeft:'10%'}}>
-                                <thead className='thead-dark'>
-                                    <tr>
-                                        <th scope="col">Image</th>
-                                        <th scope="col">Title</th>
-                                        <th scope="col">Description</th>
-                                        <th scope="col">Author(s)</th>
-                                        <th scope="col">Genre(s)</th>
-                                        <th scope="col">Publisher</th>
-                                        <th scope="col">Published</th>
-                                        <th scope="col">Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        bookShelf.map((value, index) => {
-                                            return (
-                                                <BookShelfItem
-                                                    item={value}
-                                                    openDeleteModal={toggleDelete}
-                                                    key={value.id}
-                                                />
-                                            )
-                                        })
-                                    }
-                                </tbody>
-                            </table> */}
                         </>
                         : <div style={{ backgroundColor: '#2c82c9' }} className="row justify-content-center">  <span className="text-center text-white p-2" >No books in bookshelf</span></div>
                 }
