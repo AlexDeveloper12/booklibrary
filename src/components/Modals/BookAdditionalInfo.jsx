@@ -1,6 +1,6 @@
 import React from "react";
 import ReactModal from "react-modal";
-import {Button} from "@mui/material";
+import { Button,Typography } from "@mui/material";
 import { customStyles } from "../Utils/Utils";
 import { customAuthors, customGenres, formatDate } from "../Utils/Utils";
 
@@ -21,6 +21,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                     contentLabel={`${volumeInfo !== undefined ? volumeInfo.title : ""}`}
                 >
                     <div className="container">
+                    <Typography variant="body1" color="text.secondary">
 
                         <div className="row mb-3">
                             <div className="col-md-12 text-center">
@@ -91,9 +92,11 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                             </div>
                         </div>
 
+                        </Typography>
+
                         <div className="row ">
                             <div className="col-md-12 text-center">
-                                <Button variant="outlined" onClick={toggleModal} >Close</Button>
+                                <Button variant="contained" onClick={toggleModal} >Close</Button>
                             </div>
                         </div>
 

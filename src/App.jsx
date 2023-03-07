@@ -21,7 +21,7 @@ function App() {
   const [books, setBooks] = useState([]);
   const [maxResults, setMaxResults] = useState(20);
   const [loading, setLoading] = useState(false);
-  const [chosenPrintType, setChosenPrintType] = useState("Please select");
+  const [chosenPrintType, setChosenPrintType] = useState("");
   const [chosenBookType, setChosenBookType] = useState("");
   const [bookFilter, setBookFilter] = useState("");
   const [startIndex, setStartIndex] = useState(0);
