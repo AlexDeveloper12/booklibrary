@@ -4,7 +4,7 @@ import {FormControlLabel,Radio} from "@mui/material";
 function RadioButton({ label, value, index, filterChange }) {
     return (
         <div>
-            <FormControlLabel value={value} control={<Radio name="filterrb" />} label={label}/>
+            <FormControlLabel value={value} control={<Radio name="filterrb" id={`filter-value-rb-${index}`} value={value} onChange={(event)=>filterChange(event)} />} label={label}/>
 {/* 
             <input
                 type="radio"

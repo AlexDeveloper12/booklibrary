@@ -21,7 +21,7 @@ function App() {
   const [books, setBooks] = useState([]);
   const [maxResults, setMaxResults] = useState(20);
   const [loading, setLoading] = useState(false);
-  const [chosenPrintType, setChosenPrintType] = useState("");
+  const [chosenPrintType, setChosenPrintType] = useState("Please select");
   const [chosenBookType, setChosenBookType] = useState("");
   const [bookFilter, setBookFilter] = useState("");
   const [startIndex, setStartIndex] = useState(0);
@@ -132,12 +132,11 @@ function App() {
       localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
       toggleAddToFavourite();
     }
-
-
   }
 
-
   const handleBookFilter = (event) => {
+    console.log(event.target.name);
+    console.log(event.target.value);
     setBookFilter(event.target.value);
   }
 
@@ -172,8 +171,8 @@ function App() {
 
       <NavigationHeader />
 
-      <div style={{textAlign:'center'}}>
-        <span style={{fontSize:'20px'}}>Book Search</span>
+      <div style={{ textAlign: 'center' }}>
+        <span style={{ fontSize: '20px' }}>Book Search</span>
       </div>
 
       <section id="cover" className="mt-4">
@@ -249,22 +248,21 @@ function App() {
           <RadioGroup
             name="searchfilter"
           >
+            {
+              filterButtonValues.map(({ label, value }, index) => {
+                return (
+                  <RadioButton
+                    label={label}
+                    value={value}
+                    index={index}
+                    filterChange={handleBookFilter}
+                    key={index}
+                  />
+                )
+              })
+            }
 
           </RadioGroup>
-
-          {
-            filterButtonValues.map(({ label, value }, index) => {
-              return (
-                <RadioButton
-                  label={label}
-                  value={value}
-                  index={index}
-                  filterChange={handleBookFilter}
-                  key={index}
-                />
-              )
-            })
-          }
         </div>
 
       </div>

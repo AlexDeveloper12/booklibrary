@@ -1,5 +1,5 @@
 import React from "react";
-import {Select} from "@mui/material";
+import {Select,MenuItem} from "@mui/material";
 
 function CustomDropdown({id,name,value,type,handler}){
     return(
@@ -13,11 +13,11 @@ function CustomDropdown({id,name,value,type,handler}){
         key={id}
         className="mb-4"
       >
-        <option value="-1">{`Please select ${ name==="printtype" ? "print type" : "book type" }`}</option>
+        <MenuItem value="-1">{`Please select ${ name==="printtype" ? "print type" : "book type" }`}</MenuItem>
             {
               type.map((value) => {
                 return (
-                  <option value={value}>{value}</option>
+                  <MenuItem value={value}>{value}</MenuItem>
                 )
               })
             }
