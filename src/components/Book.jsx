@@ -2,7 +2,8 @@ import React from 'react';
 import {
   Button, Card, CardHeader, CardMedia, CardContent, Typography, Rating,
 } from '@mui/material';
-import PropTypes  from 'prop-types';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 
 function Book({ item, toggleModal, addToBookshelf }) {
   const { volumeInfo } = item;
@@ -63,7 +64,7 @@ function Book({ item, toggleModal, addToBookshelf }) {
 
           <div className="row">
             <Button variant="contained" color="primary" className="mb-3 mt-1" onClick={() => addToBookshelf(item)}>Add to Bookshelf</Button>
-            <Button variant="contained" color="success" onClick={() => { event.preventDefault(); toggleModal(item); }}>Learn More</Button>
+            <Button variant="contained" color="success" onClick={() => { toggleModal(item); }}>Learn More</Button>
           </div>
 
         </CardContent>

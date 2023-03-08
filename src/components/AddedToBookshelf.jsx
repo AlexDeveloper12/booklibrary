@@ -1,5 +1,7 @@
 import React from 'react';
 import { Alert } from '@mui/material';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 
 function AddedToBookshelf({ isOpen, toggleFavouriteModal }) {
   return (
@@ -26,3 +28,13 @@ function AddedToBookshelf({ isOpen, toggleFavouriteModal }) {
 }
 
 export default AddedToBookshelf;
+
+AddedToBookshelf.defaultProps = {
+  isOpen: false,
+  toggleFavouriteModal: null,
+};
+
+AddedToBookshelf.propTypes = {
+  isOpen: PropTypes.bool,
+  toggleFavouriteModal: PropTypes.func,
+};

@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import { Button, Typography } from '@mui/material';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 import {
   customStyles, customAuthors, customGenres, formatDate,
 } from '../Utils/Utils';
@@ -23,14 +25,15 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
 
               <div className="row mb-3">
                 <div className="col-md-12 text-center">
-                  {volumeInfo !== undefined && volumeInfo.imageLinks.thumbnail !== undefined ? <img src={volumeInfo.imageLinks.thumbnail} /> : <span>No image available</span>}
+                  {volumeInfo !== undefined && volumeInfo.imageLinks.thumbnail !== undefined
+                    ? <img src={volumeInfo.imageLinks.thumbnail} alt="Alt text" /> : <span>No image available</span>}
                 </div>
               </div>
 
               <div className="row mb-3">
                 <div className="col-md-1">
                   Title:
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>{volumeInfo !== undefined && volumeInfo.title !== undefined ? volumeInfo.title : 'No title available'}</span>
                 </div>
@@ -39,7 +42,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
               <div className="row mb-3">
                 <div className="col-md-1">
                   Description:
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>{volumeInfo !== undefined && volumeInfo.title !== undefined ? volumeInfo.description : 'No description available'}</span>
                 </div>
@@ -48,7 +51,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
               <div className="row">
                 <div className="col-md-1">
                   Publisher:
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>{volumeInfo !== undefined && volumeInfo.publisher !== undefined ? volumeInfo.publisher : 'No publisher information available'}</span>
                 </div>
@@ -57,9 +60,12 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
               <div className="row">
                 <div className="col-md-1">
                   Published:
-                    </div>
+                </div>
                 <div className="col-md-11">
-                  <span>{volumeInfo !== undefined && volumeInfo !== undefined ? formatDate(volumeInfo.publishedDate) : null}</span>
+                  <span>
+                    {volumeInfo !== undefined && volumeInfo !== undefined
+                      ? formatDate(volumeInfo.publishedDate) : null}
+                  </span>
                 </div>
               </div>
 
@@ -115,3 +121,15 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
 }
 
 export default BookAdditionalInfo;
+
+BookAdditionalInfo.defaultProps = {
+  item: {},
+  isOpen: false,
+  toggleModal: null,
+};
+
+BookAdditionalInfo.propTypes = {
+  item: PropTypes.string,
+  isOpen: PropTypes.bool,
+  toggleModal: PropTypes.func,
+};

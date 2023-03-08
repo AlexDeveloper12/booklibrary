@@ -53,7 +53,6 @@ function App() {
   };
 
   const handleSearch = (event) => {
-    console.log(event.target.value);
     setSearchValue(event.target.value);
   };
 
@@ -139,8 +138,6 @@ function App() {
   };
 
   const handleBookFilter = (event) => {
-    console.log(event.target.name);
-    console.log(event.target.value);
     setBookFilter(event.target.value);
   };
 

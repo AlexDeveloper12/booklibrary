@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import { Button } from '@mui/material';
-import { customDeleteStyles } from '../Utils/Utils';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { customDeleteStyles } from '../Utils/Utils';
 
 ReactModal.setAppElement('#root');
 

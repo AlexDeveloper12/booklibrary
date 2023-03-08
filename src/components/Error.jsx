@@ -1,5 +1,7 @@
 import React from 'react';
 import { Alert } from '@mui/material';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import PropTypes from 'prop-types';
 
 function Error({ isError, toggleError, errorMessage }) {
   return (
@@ -26,3 +28,15 @@ function Error({ isError, toggleError, errorMessage }) {
 }
 
 export default Error;
+
+Error.defaultProps = {
+  isError: false,
+  toggleError: null,
+  errorMessage: '',
+};
+
+Error.propTypes = {
+  isError: PropTypes.bool,
+  toggleError: PropTypes.func,
+  errorMessage: PropTypes.string,
+};
