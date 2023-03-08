@@ -26,3 +26,6 @@ dist-ssr
 /src/components/API
 
 .env
+
+# Local Netlify folder
+.netlify
