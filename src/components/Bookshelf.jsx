@@ -13,18 +13,14 @@ function Bookshelf() {
 
   const getBookshelfItems = () => {
     const tempArray = [];
+    for (let index = 0; index < localStorage.length; index += 1) {
+      const key = localStorage.key(index);
 
-    if (localStorage.length > 0) {
-      for (let index = 0; index < localStorage.length; index += 1) {
-        const key = localStorage.key(index);
+      const value = JSON.parse(localStorage.getItem(key));
 
-        const value = JSON.parse(localStorage.getItem(key));
-
-        tempArray.push(value);
-      }
-
-      setBookShelf(tempArray);
+      tempArray.push(value);
     }
+    setBookShelf(tempArray);
   };
 
   useEffect(() => {
@@ -52,85 +48,85 @@ function Bookshelf() {
       <div className="row mt-4">
 
         {
-                    bookShelf.length > 0
-                      ? (
-                        <>
-                          <span className="mb-2">
-                            Bookshelf count:
-                            {bookShelf.length}
-                          </span>
+          bookShelf.length > 0
+            ? (
+              <>
+                <span className="mb-2">
+                  Bookshelf count:
+                  {bookShelf.length}
+                </span>
 
-                          <TableContainer component={Paper} style={{ width: '90%', margin: '0 auto' }}>
-                            <Table size="medium">
-                              <TableHead>
-                                <TableRow>
-                                  <TableCell align="center">
-                                    Image
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Title
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Description
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Author(s)
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Genre(s)
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Publisher
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Published
-                                  </TableCell>
-                                  <TableCell align="center">
-                                    Delete
-                                  </TableCell>
-                                </TableRow>
-                              </TableHead>
-                              <TableBody>
-                                {
-                                            bookShelf.map((value) => (
-                                              <BookShelfItem
-                                                item={value}
-                                                openDeleteModal={toggleDelete}
-                                                key={value.id}
-                                              />
-                                            ))
-                                        }
-                              </TableBody>
-                            </Table>
+                <TableContainer component={Paper} style={{ width: '90%', margin: '0 auto' }}>
+                  <Table size="medium">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell align="center">
+                          Image
+                        </TableCell>
+                        <TableCell align="center">
+                          Title
+                        </TableCell>
+                        <TableCell align="center">
+                          Description
+                        </TableCell>
+                        <TableCell align="center">
+                          Author(s)
+                        </TableCell>
+                        <TableCell align="center">
+                          Genre(s)
+                        </TableCell>
+                        <TableCell align="center">
+                          Publisher
+                        </TableCell>
+                        <TableCell align="center">
+                          Published
+                        </TableCell>
+                        <TableCell align="center">
+                          Delete
+                        </TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {
+                        bookShelf.map((value) => (
+                          <BookShelfItem
+                            item={value}
+                            openDeleteModal={toggleDelete}
+                            key={value.id}
+                          />
+                        ))
+                      }
+                    </TableBody>
+                  </Table>
 
-                          </TableContainer>
+                </TableContainer>
 
-                        </>
-                      )
-                      : (
-                        <div style={{ backgroundColor: '#2c82c9' }} className="row justify-content-center">
-                          {' '}
-                          <span className="text-center text-white p-2">No books in bookshelf</span>
-                        </div>
-                      )
-                }
+              </>
+            )
+            : (
+              <div style={{ backgroundColor: '#2c82c9' }} className="row justify-content-center">
+                {' '}
+                <span className="text-center text-white p-2">No books in bookshelf</span>
+              </div>
+            )
+        }
 
       </div>
 
       <div className="row">
         {
-                    isDeleteOpen
-                      ? (
-                        <DeleteBookModal
-                          isDeleteOpen={isDeleteOpen}
-                          toggleDeleteModal={toggleDelete}
-                          btnDelete={removeFromBookshelf}
-                          bookID={chosenDeleteBookID}
-                        />
-                      )
+          isDeleteOpen
+            ? (
+              <DeleteBookModal
+                isDeleteOpen={isDeleteOpen}
+                toggleDeleteModal={toggleDelete}
+                btnDelete={removeFromBookshelf}
+                bookID={chosenDeleteBookID}
+              />
+            )
 
-                      : null
-                }
+            : null
+        }
       </div>
     </div>
   );
