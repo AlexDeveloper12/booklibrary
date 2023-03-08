@@ -6,8 +6,6 @@ import { RadioGroup } from '@mui/material';
 import ClipLoader from 'react-spinners/ClipLoader';
 import './App.css';
 import Search from './components/Search';
-import { apiKey } from '../src/components/API/keys';
-import { apiURL } from '../src/components/API/calls';
 import Book from './components/Book';
 import {
   bookTypes, filterButtonValues, printTypes, customAuthors, customGenres, formatDate,
