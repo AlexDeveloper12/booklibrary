@@ -45,6 +45,7 @@ export const customAuthors = (volumeInfo) => {
     if (volumeInfo.authors !== null && volumeInfo.authors !== undefined) {
       console.log(volumeInfo.authors);
 
+      // eslint-disable-next-line array-callback-return
       volumeInfo.authors.map((value, index) => {
         authorString += `${value}`;
         if (index > 0) {
@@ -62,6 +63,7 @@ export const customGenres = (volumeInfo) => {
 
   if (volumeInfo !== null && volumeInfo !== undefined) {
     if (volumeInfo.categories !== null && volumeInfo.categories !== undefined) {
+      // eslint-disable-next-line array-callback-return
       volumeInfo.categories.map((value, index) => {
         genreString += `${value}`;
         if (index > 0) {
@@ -84,8 +86,10 @@ export const customBookShelfAuthor = (data) => {
   let bookShelfAuthorString = '';
 
   if (Array.isArray(data)) {
+    // eslint-disable-next-line array-callback-return
     data.map((value, index) => {
       if (index > 0) {
+        // eslint-disable-next-line no-unused-expressions
         `${bookShelfAuthorString}, ${bookShelfAuthorString}`;
       } else {
         bookShelfAuthorString += value;
@@ -101,8 +105,10 @@ export const customBookShelfGenre = (data) => {
   let bookShelfGenreString = '';
 
   if (Array.isArray(data)) {
+    // eslint-disable-next-line array-callback-return
     data.map((value, index) => {
       if (index > 0) {
+        // eslint-disable-next-line no-unused-expressions
         `${bookShelfGenreString}, ${bookShelfGenreString}`;
       } else {
         bookShelfGenreString += value;

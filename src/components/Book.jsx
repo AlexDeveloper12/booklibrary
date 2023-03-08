@@ -80,7 +80,7 @@ Book.defaultProps = {
 };
 
 Book.propTypes = {
-  item: PropTypes.string,
+  item: PropTypes.object,
   toggleModal: PropTypes.func,
   addToBookshelf: PropTypes.func,
 };
