@@ -66,19 +66,19 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
               <div className="row">
                 <div className="col-md-1">
                   Author(s):
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>
-                        {' '}
-                        {customAuthors(volumeInfo)}
-                      </span>
+                    {' '}
+                    {customAuthors(volumeInfo)}
+                  </span>
                 </div>
               </div>
 
               <div className="row">
                 <div className="col-md-1">
                   Genre(s):
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>{customGenres(volumeInfo)}</span>
                 </div>
@@ -87,7 +87,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
               <div className="row">
                 <div className="col-md-1">
                   Is Ebook?:
-                    </div>
+                </div>
                 <div className="col-md-11">
                   <span>{saleInfo !== undefined && saleInfo.isEbook !== undefined ? 'Yes' : 'No'}</span>
                 </div>

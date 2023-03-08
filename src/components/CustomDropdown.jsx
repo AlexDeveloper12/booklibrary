@@ -27,6 +27,14 @@ function CustomDropdown({
 
 export default CustomDropdown;
 
+CustomDropdown.defaultProps = {
+  id: 0,
+  name: '',
+  value: '',
+  type: '',
+  handler: null,
+};
+
 CustomDropdown.propTypes = {
   id: PropTypes.number,
   name: PropTypes.string,

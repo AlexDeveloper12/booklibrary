@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Button, Card, CardHeader, CardMedia, CardContent, Typography, Rating,
 } from '@mui/material';
+import PropTypes  from 'prop-types';
 
 function Book({ item, toggleModal, addToBookshelf }) {
   const { volumeInfo } = item;
@@ -70,5 +71,17 @@ function Book({ item, toggleModal, addToBookshelf }) {
     </div>
   );
 }
+
+Book.defaultProps = {
+  item: {},
+  toggleModal: null,
+  addToBookshelf: null,
+};
+
+Book.propTypes = {
+  item: PropTypes.string,
+  toggleModal: PropTypes.func,
+  addToBookshelf: PropTypes.func,
+};
 
 export default Book;

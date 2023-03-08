@@ -15,7 +15,7 @@ function Bookshelf() {
     const tempArray = [];
 
     if (localStorage.length > 0) {
-      for (let index = 0; index < localStorage.length; index++) {
+      for (let index = 0; index < localStorage.length; index += 1) {
         const key = localStorage.key(index);
 
         const value = JSON.parse(localStorage.getItem(key));

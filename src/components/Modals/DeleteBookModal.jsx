@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import { Button } from '@mui/material';
 import { customDeleteStyles } from '../Utils/Utils';
+import PropTypes from 'prop-types';
 
 ReactModal.setAppElement('#root');
 
@@ -32,3 +33,17 @@ function DeleteBookModal({
 }
 
 export default DeleteBookModal;
+
+DeleteBookModal.defaultProps = {
+  isDeleteOpen: false,
+  toggleDeleteModal: null,
+  btnDelete: null,
+  bookID: 0,
+};
+
+DeleteBookModal.propTypes = {
+  isDeleteOpen: PropTypes.bool,
+  toggleDeleteModal: PropTypes.func,
+  btnDelete: PropTypes.func,
+  bookID: PropTypes.number,
+};
