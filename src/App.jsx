@@ -150,12 +150,6 @@ function App() {
 
       <NavigationHeader />
 
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ fontSize: '20px' }}>
-          <Typography variant="h3" component="h6">Book Search</Typography>
-        </span>
-      </div>
-
       <section id="cover" className="mt-4">
         <div id="cover-caption">
           <div className="container">
