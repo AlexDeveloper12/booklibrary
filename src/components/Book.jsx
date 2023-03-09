@@ -73,6 +73,8 @@ function Book({ item, toggleModal, addToBookshelf }) {
   );
 }
 
+export default Book;
+
 Book.defaultProps = {
   item: {},
   toggleModal: null,
@@ -80,9 +82,8 @@ Book.defaultProps = {
 };
 
 Book.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   item: PropTypes.object,
   toggleModal: PropTypes.func,
   addToBookshelf: PropTypes.func,
 };
-
-export default Book;

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import {
   customStyles, customAuthors, customGenres, formatDate,
 } from '../Utils/Utils';
+import BookInfoRow from './BookInfoRow';
 
 ReactModal.setAppElement('#root');
 
@@ -39,65 +40,71 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                 </div>
               </div>
 
-              <div className="row mb-3">
-                <div className="col-md-1">
-                  Description:
-                </div>
-                <div className="col-md-11">
-                  <span>{volumeInfo !== undefined && volumeInfo.title !== undefined ? volumeInfo.description : 'No description available'}</span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Description"
+                    item={volumeInfo.description}
+                    nullMessage="No description"
+                  />
+                ) : null
+              }
 
-              <div className="row">
-                <div className="col-md-1">
-                  Publisher:
-                </div>
-                <div className="col-md-11">
-                  <span>{volumeInfo !== undefined && volumeInfo.publisher !== undefined ? volumeInfo.publisher : 'No publisher information available'}</span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Publisher:"
+                    item={volumeInfo.publisher}
+                    nullMessage="No publisher"
+                  />
+                )
+                  : null
+              }
 
-              <div className="row">
-                <div className="col-md-1">
-                  Published:
-                </div>
-                <div className="col-md-11">
-                  <span>
-                    {volumeInfo !== undefined && volumeInfo !== undefined
-                      ? formatDate(volumeInfo.publishedDate) : null}
-                  </span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Published:"
+                    item={formatDate(volumeInfo.publishedDate)}
+                    nullMessage="No published date"
+                  />
+                )
+                  : null
+              }
 
-              <div className="row">
-                <div className="col-md-1">
-                  Author(s):
-                </div>
-                <div className="col-md-11">
-                  <span>
-                    {' '}
-                    {customAuthors(volumeInfo)}
-                  </span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Author(s):"
+                    item={customAuthors(volumeInfo)}
+                    nullMessage="No authors"
+                  />
+                )
 
-              <div className="row">
-                <div className="col-md-1">
-                  Genre(s):
-                </div>
-                <div className="col-md-11">
-                  <span>{customGenres(volumeInfo)}</span>
-                </div>
-              </div>
+                  : null
+              }
 
-              <div className="row">
-                <div className="col-md-1">
-                  Is Ebook?:
-                </div>
-                <div className="col-md-11">
-                  <span>{saleInfo !== undefined && saleInfo.isEbook !== undefined ? 'Yes' : 'No'}</span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Genre(s):"
+                    item={customGenres(volumeInfo)}
+                    nullMessage="No genres"
+                  />
+                )
+                  : null
+              }
+
+              {
+                saleInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Is Ebook?:"
+                    item={saleInfo.isEbook ? 'Yes' : 'No'}
+                    nullMessage="No"
+                  />
+                )
+                  : null
+              }
 
             </Typography>
 
