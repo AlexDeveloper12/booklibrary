@@ -1,5 +1,6 @@
 import React from 'react';
 import { FormControlLabel, Radio } from '@mui/material';
+import PropTypes from 'prop-types';
 
 function RadioButton({
   label, value, index, filterChange,
@@ -22,8 +23,8 @@ RadioButton.defaultProps = {
 };
 
 RadioButton.propTypes = {
-  label: '',
-  value: '',
-  index: 0,
-  filterChange: null,
+  label: PropTypes.string,
+  value: PropTypes.string,
+  index: PropTypes.number,
+  filterChange: PropTypes.func,
 };

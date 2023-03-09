@@ -34,17 +34,18 @@ function CustomDropdown({
 export default CustomDropdown;
 
 CustomDropdown.defaultProps = {
-  id: 0,
+  id: '',
   name: '',
   value: '',
-  type: '',
+  type: [],
   handler: null,
 };
 
 CustomDropdown.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
   name: PropTypes.string,
   value: PropTypes.string,
-  type: PropTypes.string,
+  // eslint-disable-next-line react/forbid-prop-types
+  type: PropTypes.array,
   handler: PropTypes.func,
 };

@@ -164,6 +164,7 @@ function App() {
                           value={printType.value}
                           handler={printType.onChange}
                           type={printTypes}
+                          key="keyprinttype"
                         />
 
                       </div>
@@ -179,6 +180,7 @@ function App() {
                           value={bookType.value}
                           handler={bookType.onChange}
                           type={bookTypes}
+                          key="keybooktype"
                         />
                       </div>
                     </div>
