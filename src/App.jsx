@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import axios from 'axios';
-import { RadioGroup, Typography } from '@mui/material';
+import { RadioGroup } from '@mui/material';
 import ClipLoader from 'react-spinners/ClipLoader';
 import './App.css';
 import Search from './components/Search';
 import Book from './components/Book/Book';
-import { apiURL } from './components/API/calls';
-import { apiKey } from './components/API/keys';
+// import { apiURL } from './components/API/calls';
+// import { apiKey } from './components/API/keys';
 import {
   bookTypes, filterButtonValues, printTypes, customAuthors, customGenres, formatDate,
 } from './components/Utils/Utils';
@@ -84,8 +84,7 @@ function App() {
       }
 
       setLoading(true);
-      // `${import.meta.env.VITE_APP_GOOGLE_API_URL}q=${filterValue}${searchValue}&key=${import.meta.env.VITE_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`
-      axios.get(`${apiURL}q=${filterValue}${searchValue}&key=${apiKey}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
+      axios.get(`${import.meta.env.VITE_APP_GOOGLE_API_URL}q=${filterValue}${searchValue}&key=${import.meta.env.VITE_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
         .then((response) => {
           if (response !== null && response.data !== null) {
             setBooks(response.data.items);
