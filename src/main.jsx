@@ -6,7 +6,7 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import App from './App';
-import Bookshelf from './components/Bookshelf';
+import Bookshelf from './components/Book/Bookshelf';
 import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

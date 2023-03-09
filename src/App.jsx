@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import dotenv from 'dotenv';
 import axios from 'axios';
-import { RadioGroup } from '@mui/material';
+import { RadioGroup, Typography } from '@mui/material';
 import ClipLoader from 'react-spinners/ClipLoader';
 import './App.css';
 import Search from './components/Search';
-import Book from './components/Book';
+import Book from './components/Book/Book';
 import { apiURL } from './components/API/calls';
 import { apiKey } from './components/API/keys';
 import {
   bookTypes, filterButtonValues, printTypes, customAuthors, customGenres, formatDate,
 } from './components/Utils/Utils';
-import RadioButton from './components/RadioButton';
-import CustomDropdown from './components/CustomDropdown';
+import RadioButton from './components/Custom/RadioButton';
+import CustomDropdown from './components/Custom/CustomDropdown';
 import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
-import Error from './components/Error';
-import AddedToBookshelf from './components/AddedToBookshelf';
+import Error from './components/Custom/Error';
+import AddedToBookshelf from './components/Custom/AddedToBookshelf';
 import NavigationHeader from './components/Navigation/NavigationHeader';
-
-// dotenv.config();
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -154,7 +151,9 @@ function App() {
       <NavigationHeader />
 
       <div style={{ textAlign: 'center' }}>
-        <span style={{ fontSize: '20px' }}>Book Search</span>
+        <span style={{ fontSize: '20px' }}>
+          <Typography variant="h3" component="h6">Book Search</Typography>
+        </span>
       </div>
 
       <section id="cover" className="mt-4">

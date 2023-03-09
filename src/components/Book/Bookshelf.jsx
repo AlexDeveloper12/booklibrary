@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import NavigationHeader from './Navigation/NavigationHeader';
-import DeleteBookModal from './Modals/DeleteBookModal';
+import NavigationHeader from '../Navigation/NavigationHeader';
+import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
 import BookshelfTable from './BookshelfTable';
 
