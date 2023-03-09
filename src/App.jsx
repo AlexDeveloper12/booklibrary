@@ -18,13 +18,11 @@ import Error from './components/Custom/Error';
 import AddedToBookshelf from './components/Custom/AddedToBookshelf';
 import NavigationHeader from './components/Navigation/NavigationHeader';
 import useModal from './components/CustomHooks/useModal';
+import useInput from './components/CustomHooks/useInput';
 
 function App() {
-  const [searchValue, setSearchValue] = useState('');
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [chosenPrintType, setChosenPrintType] = useState('');
-  const [chosenBookType, setChosenBookType] = useState('');
   const [bookFilter, setBookFilter] = useState('');
   const [chosenBook, setChosenBook] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -35,6 +33,9 @@ function App() {
   const [isBookOpen, setIsBookOpen] = useModal();
   const [isAddedToFavouriteOpen, setIsAddedToFavouriteOpen] = useModal();
   const [isErrorMessageOpen, setIsErrorMessageOpen] = useModal();
+  const search = useInput('');
+  const bookType = useInput('');
+  const printType = useInput('');
 
   const toggleAdditionalBookInfoModal = (book) => {
     if (book !== null && book !== undefined) {
@@ -43,34 +44,17 @@ function App() {
     setIsBookOpen();
   };
 
-  const handleSearch = (event) => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleTypeChange = (event) => {
-    switch (event.target.name) {
-      case 'printtype':
-        setChosenPrintType(event.target.value);
-        break;
-      case 'booktype':
-        setChosenBookType(event.target.value);
-        break;
-      default:
-        break;
-    }
-  };
-
   const submitSearch = () => {
     let additionalQueryParams = '';
     let filterValue = '';
 
-    if (searchValue !== '') {
-      if (chosenBookType !== '') {
-        additionalQueryParams += `&filter=${chosenBookType}`;
+    if (search.value !== '') {
+      if (bookType.value !== '') {
+        additionalQueryParams += `&filter=${bookType.value}`;
       }
 
-      if (chosenPrintType !== '') {
-        additionalQueryParams += `&printType=${chosenPrintType}`;
+      if (printType.value !== '') {
+        additionalQueryParams += `&printType=${printType.value}`;
       }
 
       if (bookFilter === 'ISBN') {
@@ -78,7 +62,7 @@ function App() {
       }
 
       setLoading(true);
-      axios.get(`${import.meta.env.VITE_APP_GOOGLE_API_URL}q=${filterValue}${searchValue}&key=${import.meta.env.VITE_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
+      axios.get(`${import.meta.env.VITE_APP_GOOGLE_API_URL}q=${filterValue}${search.value}&key=${import.meta.env.VITE_APP_GOOGLE_API_KEY}&startIndex=${startIndex}&maxResults=${maxResults}${additionalQueryParams}`)
         .then((response) => {
           if (response !== null && response.data !== null) {
             setBooks(response.data.items);
@@ -109,7 +93,7 @@ function App() {
       const customGenreItem = customGenres(volumeInfo);
       const customDate = formatDate(volumeInfo.publishedDate);
 
-      const bookshelfItem = {
+      const bookshelfItem = JSON.stringify({
         id: item.id,
         title: volumeInfo.title,
         description: volumeInfo.description,
@@ -120,9 +104,9 @@ function App() {
         genres: customGenreItem,
         publisher: volumeInfo.publisher,
         publishedDate: customDate,
-      };
+      });
 
-      localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
+      localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, bookshelfItem);
       setIsAddedToFavouriteOpen();
     }
   };
@@ -153,8 +137,8 @@ function App() {
                     <div className="form-group">
                       <div className="input-group">
                         <Search
-                          searchValue={searchValue}
-                          handleSearch={handleSearch}
+                          searchValue={search.value}
+                          onChange={search.onChange}
                           btnSearch={submitSearch}
                         />
 
@@ -177,8 +161,8 @@ function App() {
                         <CustomDropdown
                           id="printType"
                           name="printtype"
-                          value={chosenPrintType}
-                          handler={handleTypeChange}
+                          value={printType.value}
+                          handler={printType.onChange}
                           type={printTypes}
                         />
 
@@ -192,8 +176,8 @@ function App() {
                         <CustomDropdown
                           id="bookType"
                           name="booktype"
-                          value={chosenBookType}
-                          handler={handleTypeChange}
+                          value={bookType.value}
+                          handler={bookType.onChange}
                           type={bookTypes}
                         />
                       </div>
@@ -236,10 +220,10 @@ function App() {
 
         {
           books !== null && books !== undefined && books.length > 0
-            ? books.map((value, index) => (
+            ? books.map((book, index) => (
               <Book
-                key={value !== undefined ? value.id : index}
-                item={value}
+                key={book !== undefined ? book.id : index}
+                item={book}
                 toggleModal={toggleAdditionalBookInfoModal}
                 addToBookshelf={addToBookshelf}
               />

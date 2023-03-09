@@ -3,11 +3,14 @@ import NavigationHeader from '../Navigation/NavigationHeader';
 import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
 import BookshelfTable from './BookshelfTable';
+import useModal from '../CustomHooks/useModal';
 
 function Bookshelf() {
   const [bookShelf, setBookShelf] = useState([]);
-  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  // const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [chosenDeleteBookID, setChosenDeleteBookID] = useState(0);
+
+  const [isDeleteOpen,setIsDeleteOpen] = useModal();
 
   const getBookshelfItems = () => {
     const tempArray = [];
