@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-  Table, TableContainer, Paper, TableRow, TableHead, TableCell, TableBody,
-} from '@mui/material';
-import BookShelfItem from './BookShelfItem';
 import NavigationHeader from './Navigation/NavigationHeader';
 import DeleteBookModal from './Modals/DeleteBookModal';
+import BookshelfCount from './BookshelfCount';
+import BookshelfTable from './BookshelfTable';
 
 function Bookshelf() {
   const [bookShelf, setBookShelf] = useState([]);
@@ -52,56 +50,15 @@ function Bookshelf() {
           bookShelf.length > 0
             ? (
               <>
-                <span className="mb-2">
-                  Bookshelf count:
-                  {bookShelf.length}
-                </span>
 
-                <TableContainer component={Paper} style={{ width: '90%', margin: '0 auto' }}>
-                  <Table size="medium">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell align="center">
-                          Image
-                        </TableCell>
-                        <TableCell align="center">
-                          Title
-                        </TableCell>
-                        <TableCell align="center">
-                          Description
-                        </TableCell>
-                        <TableCell align="center">
-                          Author(s)
-                        </TableCell>
-                        <TableCell align="center">
-                          Genre(s)
-                        </TableCell>
-                        <TableCell align="center">
-                          Publisher
-                        </TableCell>
-                        <TableCell align="center">
-                          Published
-                        </TableCell>
-                        <TableCell align="center">
-                          Delete
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {
-                        bookShelf.map((value) => (
-                          <BookShelfItem
-                            item={value}
-                            openDeleteModal={toggleDelete}
-                            key={value.id}
-                          />
-                        ))
-                      }
-                    </TableBody>
-                  </Table>
+                <BookshelfCount
+                  count={bookShelf.length}
+                />
 
-                </TableContainer>
-
+                <BookshelfTable
+                  bookShelf={bookShelf}
+                  toggleDelete={toggleDelete}
+                />
               </>
             )
             : (

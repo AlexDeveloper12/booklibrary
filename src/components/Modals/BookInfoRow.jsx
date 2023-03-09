@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function BookInfoRow({ item, label, nullMessage }) {
-    console.log(`${label} - ${item}`);
   return (
     <div className="row mb-3">
       <div className="col-md-1">
