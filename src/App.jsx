@@ -17,6 +17,7 @@ import BookAdditionalInfo from './components/Modals/BookAdditionalInfo';
 import Error from './components/Custom/Error';
 import AddedToBookshelf from './components/Custom/AddedToBookshelf';
 import NavigationHeader from './components/Navigation/NavigationHeader';
+import useModal from './components/CustomHooks/useModal';
 
 function App() {
   const [searchValue, setSearchValue] = useState('');
@@ -25,28 +26,21 @@ function App() {
   const [chosenPrintType, setChosenPrintType] = useState('');
   const [chosenBookType, setChosenBookType] = useState('');
   const [bookFilter, setBookFilter] = useState('');
-  const [isBookAddInfo, setIsBookAddInfo] = useState(false);
   const [chosenBook, setChosenBook] = useState('');
-  const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  const [addedBookToFavourite, setAddedBookToFavourite] = useState('');
 
   const maxResults = 20;
   const startIndex = 0;
+
+  const [isBookOpen, setIsBookOpen] = useModal();
+  const [isAddedToFavouriteOpen, setIsAddedToFavouriteOpen] = useModal();
+  const [isErrorMessageOpen, setIsErrorMessageOpen] = useModal();
 
   const toggleAdditionalBookInfoModal = (book) => {
     if (book !== null && book !== undefined) {
       setChosenBook(book);
     }
-    setIsBookAddInfo(!isBookAddInfo);
-  };
-
-  const toggleError = () => {
-    setIsError(!isError);
-  };
-
-  const toggleAddToFavourite = () => {
-    setAddedBookToFavourite(!addedBookToFavourite);
+    setIsBookOpen();
   };
 
   const handleSearch = (event) => {
@@ -96,7 +90,7 @@ function App() {
         });
     } else {
       setErrorMessage('Please ensure you enter a book title or isbn number');
-      setIsError(true);
+      setIsErrorMessageOpen();
     }
   };
 
@@ -109,7 +103,7 @@ function App() {
 
     if (bookInBookshelf) {
       setErrorMessage('This book is already in your bookshelf. Please choose another!');
-      setIsError(true);
+      setIsErrorMessageOpen();
     } else {
       const customAuthorItem = customAuthors(volumeInfo);
       const customGenreItem = customGenres(volumeInfo);
@@ -129,7 +123,7 @@ function App() {
       };
 
       localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, JSON.stringify(bookshelfItem));
-      toggleAddToFavourite();
+      setIsAddedToFavouriteOpen();
     }
   };
 
@@ -165,14 +159,14 @@ function App() {
                         />
 
                         <Error
-                          isError={isError}
-                          toggleError={toggleError}
+                          isError={isErrorMessageOpen}
+                          toggleError={setIsErrorMessageOpen}
                           errorMessage={errorMessage}
                         />
 
                         <AddedToBookshelf
-                          isOpen={addedBookToFavourite}
-                          toggleFavouriteModal={toggleAddToFavourite}
+                          isOpen={isAddedToFavouriteOpen}
+                          toggleFavouriteModal={setIsAddedToFavouriteOpen}
                         />
 
                       </div>
@@ -256,9 +250,9 @@ function App() {
 
       <div className="row">
         <BookAdditionalInfo
-          isOpen={isBookAddInfo}
+          isOpen={isBookOpen}
           item={chosenBook}
-          toggleModal={toggleAdditionalBookInfoModal}
+          toggleModal={setIsBookOpen}
         />
       </div>
 
