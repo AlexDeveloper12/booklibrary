@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 function BookInfoRow({
-  item, label, nullMessage, itemType
+  item, label, nullMessage, itemType, urlLabel
 }) {
   const determineHTMLOutput = () => {
     switch (itemType) {
       case 'link':
-        return <a href={item} target="_blank" rel="noreferrer">Visit Google Books</a>;
+        return <a href={item} target="_blank" rel="noreferrer">{urlLabel}</a>;
       case 'isbn':
         return <div>{item}</div>;
       default:

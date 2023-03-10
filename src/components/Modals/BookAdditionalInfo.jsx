@@ -116,6 +116,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                     itemType="link"
                     item={volumeInfo.canonicalVolumeLink}
                     nullMessage="No Google Books URL available"
+                    urlLabel="Google Books Preview"
                   />
                 )
                   : null
@@ -129,6 +130,32 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                     itemType="isbn"
                   />
                 )
+                  : null
+              }
+
+              {
+                saleInfo !== undefined && saleInfo.saleability === 'FOR_SALE'
+                  ? (
+                    <BookInfoRow
+                      label="Buy Book URL:"
+                      itemType="link"
+                      item={saleInfo.buyLink}
+                      urlLabel="Purchase E-book"
+                    />
+                  )
+
+                  : null
+              }
+
+              {
+                saleInfo !== undefined && saleInfo.saleability === 'FOR_SALE'
+                  ? (
+                    <BookInfoRow
+                      label="Retail Price:"
+                      item={`£${saleInfo.retailPrice.amount}`}
+                    />
+                  )
+
                   : null
               }
 
