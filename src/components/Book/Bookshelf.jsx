@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import {Alert} from '@mui/material';
 import NavigationHeader from '../Navigation/NavigationHeader';
 import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
@@ -7,7 +8,6 @@ import useModal from '../CustomHooks/useModal';
 
 function Bookshelf() {
   const [bookShelf, setBookShelf] = useState([]);
-  // const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [chosenDeleteBookID, setChosenDeleteBookID] = useState(0);
 
   const [isDeleteOpen,setIsDeleteOpen] = useModal();
@@ -27,7 +27,7 @@ function Bookshelf() {
 
   useEffect(() => {
     getBookshelfItems();
-  }, [bookShelf]);
+  }, []);
 
   const toggleDelete = (bookID) => {
     setIsDeleteOpen(!isDeleteOpen);
@@ -65,9 +65,9 @@ function Bookshelf() {
               </>
             )
             : (
-              <div style={{ backgroundColor: '#2c82c9' }} className="row justify-content-center">
+              <div className="row">
                 {' '}
-                <span className="text-center text-white p-2">No books in bookshelf</span>
+                <Alert severity="info" className='text-center' >No books in bookshelf</Alert>
               </div>
             )
         }

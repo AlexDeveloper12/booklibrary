@@ -13,6 +13,8 @@ ReactModal.setAppElement('#root');
 function BookAdditionalInfo({ item, isOpen, toggleModal }) {
   const { saleInfo, volumeInfo } = item;
 
+  console.log(item);
+
   if (item !== null && item !== undefined) {
     return (
       <div>
