@@ -85,6 +85,8 @@ function App() {
 
     const bookInBookshelf = (localStorage.getItem(`bookshelfitem-${bookID}`) !== null);
 
+    console.log(bookID);
+
     if (bookInBookshelf) {
       setErrorMessage('This book is already in your bookshelf. Please choose another!');
       setIsErrorMessageOpen();
@@ -94,7 +96,7 @@ function App() {
       const customDate = formatDate(volumeInfo.publishedDate);
 
       const bookshelfItem = JSON.stringify({
-        id: item.id,
+        id: bookID,
         title: volumeInfo.title,
         description: volumeInfo.description,
         pageCount: volumeInfo.pageCount,
@@ -106,7 +108,7 @@ function App() {
         publishedDate: customDate,
       });
 
-      localStorage.setItem(`bookshelfitem-${bookshelfItem.id}`, bookshelfItem);
+      localStorage.setItem(`bookshelfitem-${bookID}`, bookshelfItem);
       setIsAddedToFavouriteOpen();
     }
   };
