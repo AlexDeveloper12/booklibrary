@@ -113,6 +113,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                     label="Google Books URL:"
                     itemType="link"
                     item={volumeInfo.canonicalVolumeLink}
+                    nullMessage="No Google Books URL available"
                   />
                 )
                   : null
@@ -123,6 +124,7 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                   <BookInfoRow
                     label="ISBN:"
                     item={customISBNNumber(volumeInfo.industryIdentifiers)}
+                    itemType="isbn"
                   />
                 )
                   : null

@@ -129,7 +129,7 @@ export const customISBNNumber = (data) => {
     if (Array.isArray(data)) {
       // eslint-disable-next-line array-callback-return
       data.map((value) => {
-        bookISBNString += `${value.type}, ${value.identifier}`;
+        bookISBNString += ` ${value.type} - ${value.identifier}  `;
       });
     }
   } else {

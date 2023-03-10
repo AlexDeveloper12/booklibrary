@@ -8,6 +8,8 @@ function BookInfoRow({
     switch (itemType) {
       case 'link':
         return <a href={item} target="_blank" rel="noreferrer">Visit Google Books</a>;
+      case 'isbn':
+        return <div>{item}</div>;
       default:
         return item;
     }

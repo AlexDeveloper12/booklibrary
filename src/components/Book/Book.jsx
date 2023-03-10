@@ -9,10 +9,6 @@ import { customISBNNumber } from '../Utils/Utils';
 function Book({ item, toggleModal, addToBookshelf }) {
   const { volumeInfo } = item;
 
-  console.log(item);
-
-  console.log(customISBNNumber(item !== null ? item.volumeInfo.industryIdentifiers : null));
-
   const renderRating = (rating) => {
     if (rating !== undefined && rating !== null) {
       return <Rating value={rating} disabled />;
