@@ -19,6 +19,10 @@ import AddedToBookshelf from './components/Custom/AddedToBookshelf';
 import NavigationHeader from './components/Navigation/NavigationHeader';
 import useModal from './components/CustomHooks/useModal';
 import useInput from './components/CustomHooks/useInput';
+import DropdownContainer from './components/Containers/DropdownContainer';
+import SearchContainer from './components/Containers/SearchContainer';
+import TopContainer from './components/Containers/TopContainer';
+import RadioGroupContainer from './components/Containers/RadioGroupContainer';
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -85,8 +89,6 @@ function App() {
 
     const bookInBookshelf = (localStorage.getItem(`bookshelfitem-${bookID}`) !== null);
 
-    console.log(bookID);
-
     if (bookInBookshelf) {
       setErrorMessage('This book is already in your bookshelf. Please choose another!');
       setIsErrorMessageOpen();
@@ -129,96 +131,71 @@ function App() {
 
       <NavigationHeader />
 
-      <section id="cover" className="mt-4">
-        <div id="cover-caption">
-          <div className="container">
-            <div className="row text-white">
-              <div className="col-md-12">
-                <div className="px-2">
-                  <form>
-                    <div className="form-group">
-                      <div className="input-group">
-                        <Search
-                          searchValue={search.value}
-                          onChange={search.onChange}
-                          btnSearch={submitSearch}
-                        />
+      <TopContainer>
 
-                        <Error
-                          isError={isErrorMessageOpen}
-                          toggleError={setIsErrorMessageOpen}
-                          errorMessage={errorMessage}
-                        />
+        <SearchContainer>
 
-                        <AddedToBookshelf
-                          isOpen={isAddedToFavouriteOpen}
-                          toggleFavouriteModal={setIsAddedToFavouriteOpen}
-                        />
+          <Search
+            searchValue={search.value}
+            onChange={search.onChange}
+            btnSearch={submitSearch}
+          />
 
-                      </div>
-                    </div>
-                    <div className="form-group row">
-                      <div className="input-group">
+          <Error
+            isError={isErrorMessageOpen}
+            toggleError={setIsErrorMessageOpen}
+            errorMessage={errorMessage}
+          />
 
-                        <CustomDropdown
-                          id="printType"
-                          name="printtype"
-                          value={printType.value}
-                          handler={printType.onChange}
-                          type={printTypes}
-                          key="keyprinttype"
-                        />
+          <AddedToBookshelf
+            isOpen={isAddedToFavouriteOpen}
+            toggleFavouriteModal={setIsAddedToFavouriteOpen}
+          />
 
-                      </div>
+        </SearchContainer>
 
-                    </div>
+        <DropdownContainer>
+          <CustomDropdown
+            id="printType"
+            name="printtype"
+            value={printType.value}
+            handler={printType.onChange}
+            type={printTypes}
+            key="keyprinttype"
+          />
+        </DropdownContainer>
 
-                    <div className="form-group row">
-                      <div className="input-group">
+        <DropdownContainer>
+          <CustomDropdown
+            id="bookType"
+            name="booktype"
+            value={bookType.value}
+            handler={bookType.onChange}
+            type={bookTypes}
+            key="keybooktype"
+          />
+        </DropdownContainer>
 
-                        <CustomDropdown
-                          id="bookType"
-                          name="booktype"
-                          value={bookType.value}
-                          handler={bookType.onChange}
-                          type={bookTypes}
-                          key="keybooktype"
-                        />
-                      </div>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
+      </TopContainer>
 
-          </div>
+      <RadioGroupContainer>
+        <RadioGroup
+          name="searchfilter"
+        >
+          {
+            filterButtonValues.map(({ label, value }, index) => (
+              <RadioButton
+                label={label}
+                value={value}
+                index={index}
+                filterChange={handleBookFilter}
+                key={`$rb-key-${value}`}
+              />
+            ))
+          }
 
-        </div>
-      </section>
-
-      <div className="container">
-
-        <div className="row form-group mb-4">
-
-          <RadioGroup
-            name="searchfilter"
-          >
-            {
-              filterButtonValues.map(({ label, value }, index) => (
-                <RadioButton
-                  label={label}
-                  value={value}
-                  index={index}
-                  filterChange={handleBookFilter}
-                  key={`$rb-key-${value}`}
-                />
-              ))
-            }
-
-          </RadioGroup>
-        </div>
-
-      </div>
+        </RadioGroup>
+      </RadioGroupContainer>
 
       <div className="row">
 
