@@ -4,7 +4,7 @@ import { Button, Typography } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
 import {
-  customStyles, customAuthors, customGenres, formatDate,
+  customStyles, customAuthors, customGenres, formatDate, customISBNNumber,
 } from '../Utils/Utils';
 import BookInfoRow from './BookInfoRow';
 
@@ -31,14 +31,15 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                 </div>
               </div>
 
-              <div className="row mb-3">
-                <div className="col-md-1">
-                  Title:
-                </div>
-                <div className="col-md-11">
-                  <span>{volumeInfo !== undefined && volumeInfo.title !== undefined ? volumeInfo.title : 'No title available'}</span>
-                </div>
-              </div>
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Title"
+                    item={volumeInfo.title}
+                    nullMessage="No title"
+                  />
+                ) : null
+              }
 
               {
                 volumeInfo !== undefined ? (
@@ -101,6 +102,27 @@ function BookAdditionalInfo({ item, isOpen, toggleModal }) {
                     label="Is Ebook?:"
                     item={saleInfo.isEbook ? 'Yes' : 'No'}
                     nullMessage="No"
+                  />
+                )
+                  : null
+              }
+
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="Google Books URL:"
+                    itemType="link"
+                    item={volumeInfo.canonicalVolumeLink}
+                  />
+                )
+                  : null
+              }
+
+              {
+                volumeInfo !== undefined ? (
+                  <BookInfoRow
+                    label="ISBN:"
+                    item={customISBNNumber(volumeInfo.industryIdentifiers)}
                   />
                 )
                   : null

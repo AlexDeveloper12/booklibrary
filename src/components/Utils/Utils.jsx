@@ -1,3 +1,4 @@
+import React from "react";
 import moment from 'moment';
 
 export const printTypes = ['all', 'books', 'magazines'];
@@ -119,4 +120,21 @@ export const customBookShelfGenre = (data) => {
   }
 
   return bookShelfGenreString;
+};
+
+export const customISBNNumber = (data) => {
+  let bookISBNString = '';
+
+  if (data !== undefined) {
+    if (Array.isArray(data)) {
+      // eslint-disable-next-line array-callback-return
+      data.map((value) => {
+        bookISBNString += `${value.type}, ${value.identifier}`;
+      });
+    }
+  } else {
+    bookISBNString += 'No ISBN data available';
+  }
+
+  return bookISBNString;
 };

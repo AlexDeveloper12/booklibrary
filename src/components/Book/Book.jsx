@@ -4,9 +4,14 @@ import {
 } from '@mui/material';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
+import { customISBNNumber } from '../Utils/Utils';
 
 function Book({ item, toggleModal, addToBookshelf }) {
   const { volumeInfo } = item;
+
+  console.log(item);
+
+  console.log(customISBNNumber(item !== null ? item.volumeInfo.industryIdentifiers : null));
 
   const renderRating = (rating) => {
     if (rating !== undefined && rating !== null) {
