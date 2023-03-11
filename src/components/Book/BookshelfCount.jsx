@@ -2,8 +2,8 @@ import React from 'react';
 
 function BookshelfCount({ count }) {
   return (
-    <div className="row">
-      <span className="mx-2">
+    <div className="row mb-2">
+      <span>
         Bookshelf count:
         {count}
       </span>

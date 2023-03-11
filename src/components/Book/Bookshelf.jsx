@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import {Alert} from '@mui/material';
+import { Alert } from '@mui/material';
 import { CSVLink, CSVDownload } from 'react-csv';
 import NavigationHeader from '../Navigation/NavigationHeader';
 import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
 import BookshelfTable from './BookshelfTable';
 import useModal from '../CustomHooks/useModal';
+import useInput from "../CustomHooks/useInput";
+import BookshelfSearch from './BookshelfSearch';
 
 function Bookshelf() {
   const [bookShelf, setBookShelf] = useState([]);
   const [chosenDeleteBookID, setChosenDeleteBookID] = useState(0);
 
-  const [isDeleteOpen,setIsDeleteOpen] = useModal();
+  const [isDeleteOpen, setIsDeleteOpen] = useModal();
+  const bookShelfSearch = useInput('');
 
   const getBookshelfItems = () => {
     const tempArray = [];
@@ -25,6 +28,12 @@ function Bookshelf() {
     }
     setBookShelf(tempArray);
   };
+
+  const filteredBooks = bookShelf.filter(
+    ({ title, authors }) =>
+      title.toLowerCase().includes(bookShelfSearch.value.toLowerCase()) ||
+      authors.toLowerCase().includes(bookShelfSearch.value.toLowerCase())
+  );
 
   useEffect(() => {
     getBookshelfItems();
@@ -48,6 +57,22 @@ function Bookshelf() {
       <div className="row">
         <NavigationHeader />
       </div>
+
+      <div className="row mt-3">
+        <BookshelfSearch
+          value={bookShelfSearch.value}
+          handleChange={bookShelfSearch.onChange}
+        />
+      </div>
+
+      {/* <div className="row mt-3">
+        {
+          filteredBooks.map(({ title, authors }) => (
+            <span>{title} - {authors}</span>
+          ))
+        }
+      </div> */}
+
       <div className="row mt-4">
 
         {
@@ -60,7 +85,7 @@ function Bookshelf() {
                 />
 
                 <BookshelfTable
-                  bookShelf={bookShelf}
+                  bookShelf={filteredBooks}
                   toggleDelete={toggleDelete}
                 />
               </>
