@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {Alert} from '@mui/material';
+import { CSVLink, CSVDownload } from 'react-csv';
 import NavigationHeader from '../Navigation/NavigationHeader';
 import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
@@ -65,13 +66,17 @@ function Bookshelf() {
               </>
             )
             : (
-              <div className="row">
+              <div className="mx-2">
                 {' '}
-                <Alert severity="info" className='text-center' >No books in bookshelf</Alert>
+                <Alert severity="info" className='text-center'>No books in bookshelf</Alert>
               </div>
             )
         }
 
+      </div>
+
+      <div className='row mt-4 mx-2'>
+        <CSVLink data={bookShelf}>Download Bookshelf data</CSVLink>
       </div>
 
       <div className="row">

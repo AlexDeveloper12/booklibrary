@@ -14,7 +14,7 @@ function BookshelfTable({ bookShelf, toggleDelete }) {
         <TableHead>
           <TableRow>
             <TableCell align="center">
-              Image
+              Book Cover
             </TableCell>
             <TableCell align="center">
               Title
