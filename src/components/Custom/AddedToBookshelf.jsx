@@ -9,7 +9,7 @@ function AddedToBookshelf({ isOpen, toggleFavouriteModal }) {
       {
                 isOpen
                   ? (
-                    <div className="mt-2 mb-2">
+                    <div className="mt-2 mb-4">
                       <Alert severity="success">
                         This book has been added to your bookshelf!
                         <button type="button" className="btn btn-secondary mx-2" data-dismiss="alert" aria-label="Close" onClick={toggleFavouriteModal}>

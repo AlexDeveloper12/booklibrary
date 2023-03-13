@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Alert } from '@mui/material';
-import { CSVLink, CSVDownload } from 'react-csv';
+import { CSVLink } from 'react-csv';
 import NavigationHeader from '../Navigation/NavigationHeader';
 import DeleteBookModal from '../Modals/DeleteBookModal';
 import BookshelfCount from './BookshelfCount';
 import BookshelfTable from './BookshelfTable';
 import useModal from '../CustomHooks/useModal';
-import useInput from "../CustomHooks/useInput";
+import useInput from '../CustomHooks/useInput';
 import BookshelfSearch from './BookshelfSearch';
 
 function Bookshelf() {
@@ -30,9 +30,8 @@ function Bookshelf() {
   };
 
   const filteredBooks = bookShelf.filter(
-    ({ title, authors }) =>
-      title.toLowerCase().includes(bookShelfSearch.value.toLowerCase()) ||
-      authors.toLowerCase().includes(bookShelfSearch.value.toLowerCase())
+    ({ title, authors }) => title.toLowerCase().includes(bookShelfSearch.value.toLowerCase())
+    || authors.toLowerCase().includes(bookShelfSearch.value.toLowerCase()),
   );
 
   useEffect(() => {
@@ -65,14 +64,6 @@ function Bookshelf() {
         />
       </div>
 
-      {/* <div className="row mt-3">
-        {
-          filteredBooks.map(({ title, authors }) => (
-            <span>{title} - {authors}</span>
-          ))
-        }
-      </div> */}
-
       <div className="row mt-4">
 
         {
@@ -93,14 +84,14 @@ function Bookshelf() {
             : (
               <div className="mx-2">
                 {' '}
-                <Alert severity="info" className='text-center'>No books in bookshelf</Alert>
+                <Alert severity="info" className="text-center">No books in bookshelf</Alert>
               </div>
             )
         }
 
       </div>
 
-      <div className='row mt-4 mx-2'>
+      <div className="row mt-4 mx-2">
         <CSVLink data={bookShelf}>Download Bookshelf data</CSVLink>
       </div>
 
