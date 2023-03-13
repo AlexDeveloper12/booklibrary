@@ -53,6 +53,12 @@ function App() {
     let filterValue = '';
 
     if (search.value !== '') {
+      if (isErrorMessageOpen) {
+        setIsErrorMessageOpen();
+      }
+      if (isAddedToFavouriteOpen) {
+        setIsAddedToFavouriteOpen();
+      }
       if (bookType.value !== '') {
         additionalQueryParams += `&filter=${bookType.value}`;
       }
